@@ -1,0 +1,22 @@
+{
+  "name": "coletasp",
+  "module": "backend/index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch backend/index.js"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@fastify/express": "^4.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.2.2",
+    "pg": "^8.14.1"
+  }
+}
