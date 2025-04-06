@@ -42,10 +42,6 @@ app.get("/", async (req, res) => {
     
 })
 
-app.get("/done", (req, res) => {
-    console.log(req.body);
-})
-
 app.post("/add", async (req, res) => {
     try {
         await db.query("INSERT INTO coletas (company, date, product) VALUES($1, $2, $3)", [req.body.company, req.body.date, req.body.product]);
@@ -56,6 +52,37 @@ app.post("/add", async (req, res) => {
     }
 })
 
+app.post("/done", async (req, res) => {
+    try {
+        const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
+        await db.query("INSERT INTO coletasfeitas (company, date, product) VALUES($1, $2, $3)", [result.rows[0].company, result.rows[0].date, result.rows[0].product]);
+        res.send("ok");
+    }
+    catch (err) {
+        console.error(err);
+    }
+})
+
+app.post("/delete", async (req, res) => {
+    try {
+        const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
+        await db.query("INSERT INTO coletasdeletadas (company, date, product) VALUES($1, $2, $3)", [result.rows[0].company, result.rows[0].date, result.rows[0].product]);
+        res.send("ok");
+    }
+    catch (err) {
+        console.error(err);
+    }
+})
+
+app.post("/edit", async (req, res) => {
+    try {
+        await db.query("UPDATE coletas SET company = $1, date = $2, product = $3 WHERE id = $4", [req.body.company, req.body.date, req.body.product, req.body.input]);
+        res.send("ok");
+    }
+    catch (err) {
+        console.error(err);
+    }
+})
 
 try {
     app.listen({ port: port, host: '0.0.0.0' });

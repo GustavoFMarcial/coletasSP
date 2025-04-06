@@ -1,5 +1,6 @@
 import axios from "axios";
 import {useState, useEffect} from "react";
+import EditModal from "./EditModal.jsx";
 
 function DisplayCollects() {
 
@@ -45,6 +46,40 @@ function DisplayCollects() {
         }
         catch (err) {
             console.error(err);
+            window.alert(err);
+        }
+    }
+
+    async function doneCollect(itemId) {
+        try {
+            await axios.post("http://localhost:3000/done", {itemId});
+            window.location.reload();
+        }
+        catch (err) {
+            console.error(err);
+            window.alert(err);
+        }
+    }
+
+    async function deleteCollect(itemId) {
+        try {
+            await axios.post("http://localhost:3000/delete", {itemId});
+            window.location.reload();
+        }
+        catch (err) {
+            console.error(err);
+            window.alert(err);
+        }
+    }
+
+    async function editCollect(input) {
+        try {
+            await axios.post("http://localhost:3000/edit", input);
+            window.location.reload();
+        }
+        catch (err) {
+            console.error(err);
+            window.alert(err);
         }
     }
 
@@ -52,28 +87,25 @@ function DisplayCollects() {
         <table>
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Empresa</th>
                     <th>Data</th>
                     <th>Material</th>
                 </tr>
             </thead>
+            <tbody>
             {data.map((item, index) =>
-                <tbody key={index}>
-                    <tr className="mainRow">
-                        <td>{item.id}</td>
-                        <td>{item.company}</td>
-                        <td>{item.date}</td>
-                        <td>{item.product}</td>
-                        <td><img src="/assets/images/done.png" alt="done button"/></td>
-                        <td><img src="/assets/images/edit.png" alt="edit button"/></td>
-                        <td><img src="/assets/images/delete.png" alt="delete button"/></td>
-                    </tr>
-                </tbody>
-            )}
+                <tr key={index} className="mainRow">
+                    <td>{item.company}</td>
+                    <td>{item.date}</td>
+                    <td>{item.product}</td>
+                    <td><img onClick={() => doneCollect(item.id)} src="/assets/images/done.png" alt="done button"/></td>
+                    <td><EditModal editCollect={editCollect} itemId={item.id}/></td>
+                    <td><img onClick={() => deleteCollect(item.id)} src="/assets/images/delete.png" alt="delete button"/></td>
+                </tr>
+            )} 
+            </tbody>
             <tbody>
                 <tr>
-                    <td></td>
                     <td><input onChange={handleInput} value={input.company} type="text" name="company" placeholder="Empresa"/></td>
                     <td><input onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data"/></td>
                     <td><input onChange={handleInput} value={input.product} type="text" name="product" placeholder="Material"/></td>
