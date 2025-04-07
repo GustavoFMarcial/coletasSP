@@ -5,14 +5,12 @@ To install dependencies:
 ```bash
 bun install
 ```
-
-To run:
-one terminal
+in one terminal:
 ```bash
 cd frontend
 bun dev
 ```
-another terminal
+in another terminal:
 ```bash
 cd backend bun dev
 ```
