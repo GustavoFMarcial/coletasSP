@@ -1,4 +1,5 @@
 import { useState } from "react";
+import DisplayHeader from "./DisplayHeader";
 
 function EditModal({editCollect, itemId, company, date, product}) {
 
@@ -32,13 +33,7 @@ function EditModal({editCollect, itemId, company, date, product}) {
         <>
             <dialog id={itemId}>
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Empresa</th>
-                            <th>Data</th>
-                            <th>Material</th>
-                        </tr>
-                    </thead>
+                    <DisplayHeader />
                     <tbody>
                         <tr>
                             <td><input onChange={handleInput} value={input.company} type="text" name="company" placeholder="Empresa"/></td>
