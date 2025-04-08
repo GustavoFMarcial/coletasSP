@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-function EditModal({editCollect, itemId}) {
+function EditModal({editCollect, itemId, company, date, product}) {
 
     const [input, setInput] = useState({
         input: itemId,
-        company: "",
-        date: "",
-        product: "",
+        company: company,
+        date: date,
+        product: product,
     });
 
     function handleInput(event) {

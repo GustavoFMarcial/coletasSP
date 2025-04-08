@@ -33,7 +33,7 @@ app.use(cors({
 
 app.get("/", async (req, res) => {
     try {
-        const result = await db.query("SELECT * FROM coletas");
+        const result = await db.query("SELECT * FROM coletas ORDER BY id ASC");
         res.send(result.rows);
     }
     catch (err) {

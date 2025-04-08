@@ -87,6 +87,7 @@ function DisplayCollects() {
         <table>
             <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Empresa</th>
                     <th>Data</th>
                     <th>Material</th>
@@ -95,17 +96,19 @@ function DisplayCollects() {
             <tbody>
             {data.map((item, index) =>
                 <tr key={index} className="mainRow">
+                    <td>{item.id}</td>
                     <td>{item.company}</td>
                     <td>{item.date}</td>
                     <td>{item.product}</td>
                     <td><img onClick={() => doneCollect(item.id)} src="/assets/images/done.png" alt="done button"/></td>
-                    <td><EditModal editCollect={editCollect} itemId={item.id}/></td>
+                    <td><EditModal editCollect={editCollect} itemId={item.id} company={item.company} date={item.date} product={item.product}/></td>
                     <td><img onClick={() => deleteCollect(item.id)} src="/assets/images/delete.png" alt="delete button"/></td>
                 </tr>
             )} 
             </tbody>
             <tbody>
                 <tr>
+                    <td></td>
                     <td><input onChange={handleInput} value={input.company} type="text" name="company" placeholder="Empresa"/></td>
                     <td><input onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data"/></td>
                     <td><input onChange={handleInput} value={input.product} type="text" name="product" placeholder="Material"/></td>
