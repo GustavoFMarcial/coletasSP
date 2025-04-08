@@ -1,5 +1,5 @@
 import Header from "./Header.jsx";
-import DisplayCollects from "./DisplayCollects.jsx";
+import DisplayCollects from "./displayComponents/DisplayCollects.jsx";
 
 function App() {
 

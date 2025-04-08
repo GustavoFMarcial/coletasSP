@@ -3,7 +3,6 @@ import {useState, useEffect} from "react";
 import DisplayHeader from "./DisplayHeader.jsx";
 import DisplayMap from "./DisplayMap.jsx";
 import DisplayInput from "./DisplayInput.jsx";
-import EditModal from "./EditModal.jsx";
 
 function DisplayCollects() {
 
