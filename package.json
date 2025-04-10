@@ -3,7 +3,8 @@
   "module": "backend/index.ts",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch backend/index.js"
+    "dev": "bun --watch backend/index.js",
+    "start": "bun backend/index.js"
   },
   "private": true,
   "devDependencies": {

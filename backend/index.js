@@ -3,17 +3,13 @@ import cors from "cors";
 import 'dotenv/config'
 import pg from "pg";
 
-const port = process.env.SERVER_PORT;
+const port = process.env.PORT || 3000;
 
 const app = Fastify();
 
 const { Client } = pg;
 const db = new Client({
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    host: process.env.HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DATABASE,
+    connectionString: process.env.DATABASE_URL,
 })
 
 async function connectDB() {
