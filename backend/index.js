@@ -22,10 +22,13 @@ async function connectDB() {
 }
 connectDB();
 
-await app.register(require('@fastify/express'));
-app.use(cors({
-    origin: "http://localhost:5173",
-}));
+await app.register(cors, {
+    origin: [
+      "https://coletas-sp.vercel.app",
+      "http://localhost:5173",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+  });
 
 app.get("/", async (req, res) => {
     try {
