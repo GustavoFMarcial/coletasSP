@@ -85,7 +85,6 @@ app.post("/edit", async (req, res) => {
 
 try {
     app.listen({ port: port, host: '0.0.0.0' });
-    console.log(`Server running on port ${port}`);
 }
 catch (err) {
     app.log.error(err);
