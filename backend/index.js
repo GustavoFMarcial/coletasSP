@@ -1,5 +1,5 @@
 import Fastify from 'fastify';
-import cors from "cors";
+import cors from '@fastify/cors';
 import 'dotenv/config'
 import pg from "pg";
 
