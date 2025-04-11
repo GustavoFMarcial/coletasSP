@@ -7,6 +7,8 @@ const port = process.env.PORT || 3000;
 
 const app = Fastify();
 
+
+console.log(process.env.DATABASE_URL);
 const { Client } = pg;
 const db = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -28,7 +30,7 @@ await app.register(cors, {
       "http://localhost:5173",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-  });
+});
 
 app.get("/", async (req, res) => {
     try {
