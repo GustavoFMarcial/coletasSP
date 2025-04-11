@@ -9,7 +9,11 @@ const app = Fastify();
 
 const { Client } = pg;
 const db = new Client({
-    connectionString: process.env.DATABASE_URL,
+    host: "db.aovdwewnyntxhmapwgqx.supabase.co",
+    port: 5432,
+    database: "postgres",
+    user: "postgres",
+    password: process.env.PASSWORD,
 })
 
 async function connectDB() {
