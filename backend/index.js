@@ -9,8 +9,8 @@ const app = Fastify();
 
 
 console.log(process.env.DATABASE_URL);
-const { Client } = pg;
-const db = new Client({
+const { Pool } = pg;
+const db = new Pool({
     connectionString: process.env.DATABASE_URL,
 })
 
