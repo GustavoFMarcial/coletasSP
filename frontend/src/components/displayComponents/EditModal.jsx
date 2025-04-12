@@ -13,13 +13,13 @@ function EditModal({editCollect, itemId, company, date, product}) {
     function handleInput(event) {
         const {name, value} = event.target;
         if (name == "company") {
-            setInput({...input, company: value});
+            setInput({...input, company: value.trim()});
         }
         if (name == "date") {
-            setInput({...input, date: value});
+            setInput({...input, date: value.trim()});
         }
         if (name == "product") {
-            setInput({...input, product: value});
+            setInput({...input, product: value.trim()});
         }
     }
 
@@ -36,9 +36,9 @@ function EditModal({editCollect, itemId, company, date, product}) {
                     <DisplayHeader />
                     <tbody>
                         <tr>
-                            <td><input onChange={handleInput} value={input.company} type="text" name="company" placeholder="Empresa"/></td>
-                            <td><input onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data"/></td>
-                            <td><input onChange={handleInput} value={input.product} type="text" name="product" placeholder="Material"/></td>
+                            <td><input onChange={handleInput} value={input.company} type="text" name="company" placeholder="Empresa" required/></td>
+                            <td><input onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required/></td>
+                            <td><input onChange={handleInput} value={input.product} type="text" name="product" placeholder="Material" required/></td>
                             <td><img onClick={() => editCollect(input)} src="/assets/images/done.png" alt="done button"/></td>
                         </tr>
                     </tbody>
