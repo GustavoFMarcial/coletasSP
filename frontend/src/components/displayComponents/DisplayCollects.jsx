@@ -13,6 +13,7 @@ function DisplayCollects() {
             try {
               const result = await axios("https://coletassp.onrender.com");
               setData(result.data);
+              console.log(result.data);
             }
             catch (err) {
               console.error(err);
