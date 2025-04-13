@@ -9,16 +9,7 @@ function DisplayInput({addCollect}) {
     })
 
     function handleInput(event) {
-        const {name, value} = event.target;
-        if (name == "company") {
-            setInput({...input, company: value.trim()});
-        }
-        if (name == "date") {
-            setInput({...input, date: value.trim()});
-        }
-        if (name == "product") {
-            setInput({...input, product: value.trim()});
-        }
+        setInput(i => ({...i, [event.target.name]: event.target.value}));
     }
 
     return(
