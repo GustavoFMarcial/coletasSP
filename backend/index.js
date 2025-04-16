@@ -3,27 +3,28 @@ import cors from '@fastify/cors';
 import 'dotenv/config'
 import pg from "pg";
 import collects from './routes/collects';
+import companiesProducts from "./routes/companies&products";
 
 const port = process.env.PORT || 3000;
 
 const app = Fastify();
 
-const { Pool } = pg;
-const db = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false,
-      },
-})
-
-// const { Client } = pg;
-// const db = new Client ({
-//     user: process.env.USER,
-//     password: process.env.PASSWORD,
-//     host: process.env.HOST,
-//     port: process.env.DB_PORT,
-//     database: process.env.DATABASE,
+// const { Pool } = pg;
+// const db = new Pool({
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: {
+//         rejectUnauthorized: false,
+//       },
 // })
+
+const { Client } = pg;
+const db = new Client ({
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    host: process.env.HOST,
+    port: process.env.DB_PORT,
+    database: process.env.DATABASE,
+})
 
 async function connectDB() {
     try{
@@ -44,6 +45,7 @@ await app.register(cors, {
 });
 
 app.register(collects);
+app.register(companiesProducts);
 
 try {
     app.listen({ port: port, host: '0.0.0.0' });

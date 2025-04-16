@@ -1,4 +1,6 @@
 import db from "../index.js";
+import { companiesArray } from "./companies&products.js";
+import { productsArray } from "./companies&products.js";
 
 function logTime(label) {
     console.time(label);
@@ -38,14 +40,29 @@ async function collects(app, _) {
         finally {
             end();
         }
-        
     })
     
     app.post("/add", async (req, res) => {
         const end = logTime("POST /add");
+        const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
         try {
-            await db.query("INSERT INTO coletas (company, date, product) VALUES($1, $2, $3)", [req.body.company, req.body.date, req.body.product]);
-            res.status(201).send("ok");
+            if (companiesArray.includes(req.body.company)) {
+                if (dateRegex.test(req.body.date)) {
+                    if (productsArray.includes(req.body.product)) {
+                        await db.query("INSERT INTO coletas (company, date, product) VALUES($1, $2, $3)", [req.body.company, req.body.date, req.body.product]);
+                        res.status(201).send("ok");
+                    }
+                    if (!productsArray.includes(req.body.product)) {
+                        res.status(404).send("Coloque um nome de produto válido");
+                    }
+                }
+                if (!dateRegex.test(req.body.date)) {
+                    res.status(404).send("Coloque uma data válida, por exemplo: DD/MM/AAAA");
+                }
+            }
+            if (!companiesArray.includes(req.body.company)) {
+                res.status(404).send("Coloque um nome de empresa válido");
+            }
         }
         catch (err) {
             console.error(err);
@@ -92,9 +109,25 @@ async function collects(app, _) {
     
     app.post("/edit", async (req, res) => {
         const end = logTime("POST /edit");
+        const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
         try {
-            await db.query("UPDATE coletas SET company = $1, date = $2, product = $3 WHERE id = $4", [req.body.company, req.body.date, req.body.product, req.body.input]);
-            res.status(200).send("ok");
+            if (companiesArray.includes(req.body.company)) {
+                if (dateRegex.test(req.body.date)) {
+                    if (productsArray.includes(req.body.product)) {
+                        await db.query("UPDATE coletas SET company = $1, date = $2, product = $3 WHERE id = $4", [req.body.company, req.body.date, req.body.product, req.body.input]);
+                        res.status(201).send("ok");
+                    }
+                    if (!productsArray.includes(req.body.product)) {
+                        res.status(404).send("Coloque um nome de produto válido");
+                    }
+                }
+                if (!dateRegex.test(req.body.date)) {
+                    res.status(404).send("Coloque uma data válida, por exemplo: DD/MM/AAAA")
+                }
+            }
+            if (!companiesArray.includes(req.body.company)) {
+                res.status(404).send("Coloque um nome de empresa válido");
+            }
         }
         catch (err) {
             console.error(err);
