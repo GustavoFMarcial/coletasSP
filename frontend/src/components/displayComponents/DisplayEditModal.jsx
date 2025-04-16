@@ -55,6 +55,7 @@ function EditModal({editCollect, item}) {
                         <tr>
                             <td><DisplayAutoSearchCompany autoSearch={autoSearchCompany} input={input} handleClick={handleClick}/></td>
                             <td></td>
+                            <td></td>
                             <td><DisplayAutoSearchProduct autoSearch={autoSearchProduct} input={input} handleClick={handleClick}/></td>
                         </tr>
                     </tbody>
