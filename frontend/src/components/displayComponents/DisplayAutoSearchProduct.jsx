@@ -6,8 +6,8 @@ function DisplayAutoSearchProduct({autoSearch, input, handleClick}) {
 
     async function getProducts() {
         try {
-            // await axios.post("https://coletassp.onrender.com/products");
-            const result = await axios.get("http://localhost:3000/products");
+            await axios.post("https://coletassp.onrender.com/products");
+            // const result = await axios.get("http://localhost:3000/products");
             setCompanies(result.data);
         }
         catch (err) {
