@@ -19,7 +19,7 @@ const getOptions = {
     }
 }
 
-async function companiesProducts(app, _) {
+async function companiesAndProducts(app, _) {
     app.get("/companies", getOptions, (req, res) => {
         const end = logTime("GET /companies");
         try {
@@ -49,4 +49,4 @@ async function companiesProducts(app, _) {
     })
 }
 
-export default companiesProducts;
+export default companiesAndProducts;

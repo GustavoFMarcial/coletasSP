@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import DisplayAutoSearchCompany from "./DisplayAutoSearchCompany.jsx";
 import DisplayAutoSearchProduct from "./DisplayAutoSearchProduct.jsx";
@@ -13,7 +14,13 @@ function DisplayInput({addCollect}) {
     })
 
     function handleInput(event) {
+        console.log(event.nativeEvent.inputType);
         setInput(i => ({...i, [event.target.name]: event.target.value}));
+        if (input.date.length == 1 || input.date.length == 4) {
+            if (event.nativeEvent.inputType == "insertText") {
+                setInput(i => ({...i, [event.target.name]: event.target.value.concat("/")}));
+            }
+        }
     }
 
     function handleMouseDown(event) {

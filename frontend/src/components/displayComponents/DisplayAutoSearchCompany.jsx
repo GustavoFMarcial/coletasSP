@@ -1,21 +1,24 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function DisplayAutoSearchCompany({autoSearch, input, handleClick}) {
     const [companies, setCompanies] = useState([]);
 
-    async function getCompanies() {
-        try {
-            const result = await axios.get("https://coletassp.onrender.com/companies");
-            // const result = await axios.get("http://localhost:3000/companies");
-            setCompanies(result.data);
+    useEffect(() => {
+        async function getCompanies() {
+            try {
+                const result = await axios.get("https://coletassp.onrender.com/companies");
+                // const result = await axios.get("http://localhost:3000/companies");
+                setCompanies(result.data);
+            }
+            catch (err) {
+                console.error(err);
+                window.alert(err);
+            }
         }
-        catch (err) {
-            console.error(err);
-            window.alert(err);
-        }
-    }
-    getCompanies();
+
+        getCompanies();
+    }, []);
 
     return (
         <>

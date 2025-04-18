@@ -12,7 +12,7 @@ function DisplayCollects() {
         async function fetchData() {
             try {
               const result = await axios("https://coletassp.onrender.com/");
-            //   const result = await axios("http://localhost:3000/")
+            //   const result = await axios("http://localhost:3000/");
               setData(result.data);
             }
             catch (err) {
@@ -27,7 +27,7 @@ function DisplayCollects() {
     async function doneCollect(itemId) {
         try {
             await axios.post("https://coletassp.onrender.com/done", {itemId});
-            // await axios.post("http://localhost:3000/done", {itemId})
+            // await axios.post("http://localhost:3000/done", {itemId});
             window.location.reload();
         }
         catch (err) {

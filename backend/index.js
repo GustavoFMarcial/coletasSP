@@ -3,12 +3,13 @@ import cors from '@fastify/cors';
 import 'dotenv/config'
 import pg from "pg";
 import collects from './routes/collects';
-import companiesProducts from "./routes/companies&products";
+import companiesAndProducts from "./routes/companies&products";
 
 const port = process.env.PORT || 3000;
 
 const app = Fastify();
 
+console.log('DATABASE_URL:', process.env.DATABASE_URL);
 const { Pool } = pg;
 const db = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -45,7 +46,7 @@ await app.register(cors, {
 });
 
 app.register(collects);
-app.register(companiesProducts);
+app.register(companiesAndProducts);
 
 try {
     app.listen({ port: port, host: '0.0.0.0' });
