@@ -16,6 +16,11 @@ function EditModal({editCollect, item}) {
 
     function handleInput(event) {
         setInput(i => ({...i, [event.target.name]: event.target.value}));
+        if (input.date.length == 1 || input.date.length == 4) {
+            if (event.nativeEvent.inputType == "insertText") {
+                setInput(i => ({...i, [event.target.name]: event.target.value.concat("/")}));
+            }
+        }
     }
 
     function openDialog(id) {

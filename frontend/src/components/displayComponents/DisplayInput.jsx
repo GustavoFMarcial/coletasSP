@@ -14,7 +14,6 @@ function DisplayInput({addCollect}) {
     })
 
     function handleInput(event) {
-        console.log(event.nativeEvent.inputType);
         setInput(i => ({...i, [event.target.name]: event.target.value}));
         if (input.date.length == 1 || input.date.length == 4) {
             if (event.nativeEvent.inputType == "insertText") {
