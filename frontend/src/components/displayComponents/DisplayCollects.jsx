@@ -12,8 +12,8 @@ function DisplayCollects() {
     useEffect(() => {
         async function fetchData() {
             try {
-            //   const result = await axios("https://coletassp.onrender.com/");
-              const result = await axios("http://localhost:3000/");
+              const result = await axios("https://coletassp.onrender.com/");
+            //   const result = await axios("http://localhost:3000/");
               setData(result.data);
             }
             catch (err) {
@@ -27,8 +27,8 @@ function DisplayCollects() {
 
     async function doneCollect(itemId) {
         try {
-            // await axios.post("https://coletassp.onrender.com/done", {itemId});
-            await axios.post("http://localhost:3000/done", {itemId});
+            await axios.post("https://coletassp.onrender.com/done", {itemId});
+            // await axios.post("http://localhost:3000/done", {itemId});
             window.location.reload();
         }
         catch (err) {
@@ -39,8 +39,8 @@ function DisplayCollects() {
 
     async function editCollect(input) {
         try {
-            // await axios.post("https://coletassp.onrender.com/edit", input);
-            await axios.post("http://localhost:3000/edit", input);
+            await axios.post("https://coletassp.onrender.com/edit", input);
+            // await axios.post("http://localhost:3000/edit", input);
             window.location.reload();
         }
         catch (err) {
@@ -51,8 +51,8 @@ function DisplayCollects() {
 
     async function deleteCollect(itemId) {
         try {
-            // await axios.post("https://coletassp.onrender.com/delete", {itemId});
-            await axios.post("http://localhost:3000/delete", {itemId});
+            await axios.post("https://coletassp.onrender.com/delete", {itemId});
+            // await axios.post("http://localhost:3000/delete", {itemId});
             window.location.reload();
         }
         catch (err) {
@@ -63,8 +63,8 @@ function DisplayCollects() {
 
     async function addCollect(data) {
         try {
-            // await axios.post("https://coletassp.onrender.com/add", data);
-            await axios.post("http://localhost:3000/add", data);
+            await axios.post("https://coletassp.onrender.com/add", data);
+            // await axios.post("http://localhost:3000/add", data);
             window.location.reload();
         }
         catch (err) {
