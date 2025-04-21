@@ -44,7 +44,7 @@ function App() {
 
   async function login(credentials) {
     try {
-        const result = awaitaxios.post("https://coletassp.onrender.com/login", credentials);
+        const result = await axios.post("https://coletassp.onrender.com/login", credentials);
         // const result = await axios.post("http://localhost:3000/login", credentials);
         const receivedToken = await result.headers["authorization"];
         console.log(result);
