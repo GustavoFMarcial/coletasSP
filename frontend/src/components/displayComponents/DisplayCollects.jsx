@@ -1,12 +1,11 @@
 import axios from "axios";
-import {useState, useEffect} from "react";
+import {useState, useEffect } from "react";
 import Header from "../Header.jsx";
 import DisplayHeader from "./DisplayHeader.jsx";
 import DisplayMap from "./DisplayMap.jsx";
 import DisplayInput from "./DisplayInput.jsx";
 
 function DisplayCollects() {
-
     const [data, setData] = useState([]);
 
     useEffect(() => {
