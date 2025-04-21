@@ -18,16 +18,16 @@ function App() {
     async function checkUser() {
       if (!token) return;
       try {
-        // const result = await axios.get("https://coletassp.onrender.com/login", {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // });
-        const result = await axios.get("http://localhost:3000/login", {
+        const result = await axios.get("https://coletassp.onrender.com/login", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+        // const result = await axios.get("http://localhost:3000/login", {
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // });
         if (result.data == "VT") {
           setAuth(true);
         }
