@@ -4,7 +4,6 @@ import DisplayCollects from "./displayComponents/DisplayCollects.jsx";
 import Loading from "./Loading.jsx";
 
 function App() {
-  const [auth, setAuth] = useState(false);
   const [token, setToken] = useState();
   const Login = lazy(() => import("./loginComponent/Login.jsx"));
 
@@ -29,9 +28,6 @@ function App() {
         //     Authorization: `Bearer ${token}`,
         //   },
         // });
-        if (result.data == "VT") {
-          setAuth(true);
-        }
       }
       catch (err) {
         console.error(err);
@@ -48,7 +44,6 @@ function App() {
         const result = await axios.post("https://coletassp.onrender.com/login", credentials);
         // const result = await axios.post("http://localhost:3000/login", credentials);
         const receivedToken = await result.headers["authorization"];
-        console.log(result);
         if (receivedToken) {
             sessionStorage.setItem("authToken", receivedToken);
             setToken(receivedToken);
