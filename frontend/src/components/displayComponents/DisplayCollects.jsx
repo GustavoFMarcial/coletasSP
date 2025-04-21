@@ -1,5 +1,5 @@
 import axios from "axios";
-import {useState, useEffect } from "react";
+import {useState, useEffect, Suspense, lazy } from "react";
 import Header from "../Header.jsx";
 import DisplayHeader from "./DisplayHeader.jsx";
 import DisplayMap from "./DisplayMap.jsx";
@@ -7,6 +7,7 @@ import DisplayInput from "./DisplayInput.jsx";
 
 function DisplayCollects() {
     const [data, setData] = useState([]);
+    const Loading = lazy(() => import("../Loading.jsx"));
 
     useEffect(() => {
         async function fetchData() {
@@ -77,7 +78,9 @@ function DisplayCollects() {
             <Header />
             <table>
                 <DisplayHeader />
-                <DisplayMap data={data} doneCollect={doneCollect} editCollect={editCollect} deleteCollect={deleteCollect}/>
+                <Suspense fallback={<Loading />}>
+                    <DisplayMap data={data} doneCollect={doneCollect} editCollect={editCollect} deleteCollect={deleteCollect}/>
+                </Suspense>
                 <DisplayInput addCollect={addCollect}/>
             </table>
         </>
