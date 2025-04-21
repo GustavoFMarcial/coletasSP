@@ -78,7 +78,6 @@ async function collects(app, _) {
         console.log(req.body);
         try {
             const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
-            console.log(result.rows);
             await db.query("INSERT INTO coletasfeitas (company, date, product) VALUES($1, $2, $3)", [result.rows[0].company, result.rows[0].date, result.rows[0].product]);
             res.status(200).send("ok");
         }

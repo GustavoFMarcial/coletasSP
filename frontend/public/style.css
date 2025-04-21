@@ -66,8 +66,38 @@ textarea {
     resize: none;
     overflow: hidden;
     caret-color: transparent;
-    width: 100%;
+    width: 100%;    
     display: block;
     height: 30px;
     padding-left: 5px;
+}
+
+.login {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.login-container {
+    background-color: #EBE8DB;
+    border-radius: 10px;
+    padding: 40px 60px;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+}
+
+.login-input, .password-input {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+}
+
+.login-button {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
 }

@@ -7,8 +7,8 @@ function DisplayAutoSearchCompany({autoSearch, input, handleClick}) {
     useEffect(() => {
         async function getCompanies() {
             try {
-                const result = await axios.get("https://coletassp.onrender.com/companies");
-                // const result = await axios.get("http://localhost:3000/companies");
+                // const result = await axios.get("https://coletassp.onrender.com/companies");
+                const result = await axios.get("http://localhost:3000/companies");
                 setCompanies(result.data);
             }
             catch (err) {

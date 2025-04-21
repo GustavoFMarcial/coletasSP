@@ -23,7 +23,7 @@ async function companiesAndProducts(app, _) {
     app.get("/companies", getOptions, (req, res) => {
         const end = logTime("GET /companies");
         try {
-            res.status(200).send(companiesArray)
+            res.status(200).send(companiesArray);
         }
         catch (err) {
             console.error(err);
@@ -37,7 +37,7 @@ async function companiesAndProducts(app, _) {
     app.get("/products", (req, res) => {
         const end = logTime("GET /products");
         try {
-            res.status(200).send(productsArray)
+            res.status(200).send(productsArray);
         }
         catch (err) {
             console.error(err);
