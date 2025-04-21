@@ -5,8 +5,8 @@ function DisplayMap({data, doneCollect, editCollect, deleteCollect}) {
     const Loading = lazy(() => import ("../Loading.jsx"));
 
     return(
-        <tbody>
-            <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loading />}>
+            <tbody>
                 {data.map((item, index) =>
                     <tr key={index} className="mainRow">
                         <td>{item.company}</td>
@@ -16,9 +16,9 @@ function DisplayMap({data, doneCollect, editCollect, deleteCollect}) {
                         <td><EditModal editCollect={editCollect} item={item}/></td>
                         <td><img onClick={() => deleteCollect(item.id)} src="/assets/images/delete.png" alt="delete button"/></td>
                     </tr>
-                )}
-            </Suspense>
-        </tbody>
+                )} 
+            </tbody>
+        </Suspense>
     )
 }
 
