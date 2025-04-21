@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import axios from "axios";
-import Login from "./loginComponent/Login.jsx";
 import DisplayCollects from "./displayComponents/DisplayCollects.jsx";
+import Loading from "./Loading.jsx";
 
 function App() {
   const [auth, setAuth] = useState(false);
   const [token, setToken] = useState();
+  const Login = lazy(() => import("./loginComponent/Login.jsx"));
 
   useEffect(() => {
     const savedToken = sessionStorage.getItem("authToken");
@@ -64,7 +65,13 @@ function App() {
 
   return (
     <>
-      {auth ? <DisplayCollects /> : <Login login={login}/>}
+      {auth ?
+      <DisplayCollects /> 
+      :
+      <Suspense fallback={<Loading />}>
+        <Login login={login}/>   
+      </Suspense>
+      }
     </>
   )
 }

@@ -101,3 +101,11 @@ textarea {
     justify-content: center;
     flex-direction: row;
 }
+
+.loading-container {
+    font-size: 2rem;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
