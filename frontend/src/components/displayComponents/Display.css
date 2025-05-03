@@ -1,0 +1,93 @@
+.filter-container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.filter-container button {
+    background-color: #EBE8DB;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.filter-container button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.03);
+}
+
+table {
+    width: 50%;
+    margin: auto;
+    margin-top: 100px;
+    padding: 5px 20px 20px 20px;
+    background-color: #EBE8DB;
+    border-radius: 10px;
+    font-size: 20px;
+    border-collapse: collapse;
+}
+
+th {
+    font-size: 30px;
+    text-align: left;
+}
+
+th, td {
+    padding: 5px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.mainRow td {
+    border-bottom: 2px solid black;
+}
+
+.dialog-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+dialog {
+    position: absolute;
+    left: 30%;
+    top: 30%
+}
+
+img {
+    width: 25px;
+}
+
+img:hover {
+    cursor: pointer;
+}
+
+input {
+    padding: 5px;
+    width: 200px;
+}
+
+.autosearch {
+    margin: 0;
+    padding: 0;
+    background-color: #EBE8DB;
+    list-style: none;
+    position: absolute;
+    width: 214px;
+    top: -9px;
+    cursor: pointer;
+}
+
+textarea {
+    all: unset;
+    resize: none;
+    overflow: hidden;
+    caret-color: transparent;
+    width: 100%;    
+    display: block;
+    height: 30px;
+    padding-left: 5px;
+}

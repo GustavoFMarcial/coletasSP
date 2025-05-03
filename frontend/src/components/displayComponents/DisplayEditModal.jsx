@@ -8,7 +8,7 @@ function EditModal({editCollect, item}) {
     const [autoSearchCompany, setAutoSearchCompany] = useState(false);
     const [autoSearchProduct, setAutoSearchProduct] = useState(false);
     const [input, setInput] = useState({
-        input: item.id,
+        id: item.id,
         company: item.company,
         date: item.date,
         product: item.product,
@@ -47,25 +47,29 @@ function EditModal({editCollect, item}) {
 
     return (
         <>
-            <dialog id={item.id}>
-                <table>
-                    <DisplayHeader />
-                    <tbody>
-                        <tr>
-                            <td><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
-                            <td><input onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
-                            <td><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
-                            <td><img onClick={() => editCollect(input)} src="/assets/images/done.png" alt="done button"/></td>
-                        </tr>
-                        <tr>
-                            <td><DisplayAutoSearchCompany autoSearch={autoSearchCompany} input={input} handleClick={handleClick}/></td>
-                            <td></td>
-                            <td></td>
-                            <td><DisplayAutoSearchProduct autoSearch={autoSearchProduct} input={input} handleClick={handleClick}/></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </dialog>
+            <div className="dialog-container">
+                <dialog id={item.id}>
+                    <table>
+                        <DisplayHeader />
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
+                                <td><input onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
+                                <td><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
+                                <td><img onClick={() => editCollect(input)} src="/assets/images/done.png" alt="done button"/></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><DisplayAutoSearchCompany autoSearch={autoSearchCompany} input={input} handleClick={handleClick}/></td>
+                                <td></td>
+                                <td><DisplayAutoSearchProduct autoSearch={autoSearchProduct} input={input} handleClick={handleClick}/></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </dialog>
+            </div>
             <img onClick={() => openDialog(item.id)} src="/assets/images/edit.png" alt="edit button"/>
         </>
     )

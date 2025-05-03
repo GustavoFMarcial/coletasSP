@@ -1,11 +1,12 @@
-import Header from "../Header";
+import HeaderLogin from "../headerComponents/HeaderLogin.jsx";
 import LoginForm from "./LoginForm.jsx";
+import "./Login.css";
 
 function Login({login}) {
 
     return (
         <>
-            <Header />
+            <HeaderLogin />
             <LoginForm login={login} />
         </>
     )

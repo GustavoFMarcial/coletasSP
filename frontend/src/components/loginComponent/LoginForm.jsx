@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 
 function LoginForm({login}) {
@@ -20,7 +19,7 @@ function LoginForm({login}) {
                         <input onChange={handleInput} value={credentials.login} type="text" name="login" required autoComplete="off"/>
                     </div>
                     <div className="password-input">
-                        <label>Password</label>
+                        <label>Senha</label>
                         <input onChange={handleInput} value={credentials.password} type="password" name="password" required autoComplete="off"/>
                     </div>
                     <div className="login-button">

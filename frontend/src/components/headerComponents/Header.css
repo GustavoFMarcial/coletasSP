@@ -1,0 +1,30 @@
+.header-container {
+    height: 75px;
+    display: flex;
+    background-color: #EBE8DB;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-container > a {
+    text-decoration: none;
+    color: inherit;
+    padding: 8px 16px;
+    font-size: 2.5rem;
+    color: #000000;
+}
+
+.nav-items-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 8px 16px;
+}
+
+.nav-items-container a {
+    text-decoration: none;
+    color: inherit;
+    padding: 8px 16px;
+    color: #000000;
+}

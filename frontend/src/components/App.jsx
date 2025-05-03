@@ -1,7 +1,7 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import axios from "axios";
 import DisplayCollects from "./displayComponents/DisplayCollects.jsx";
-import Loading from "./Loading.jsx";
+import Loading from "./loadingComponents/Loading.jsx";
 
 function App() {
   const [token, setToken] = useState();
@@ -44,8 +44,12 @@ function App() {
         const result = await axios.post("https://coletassp.onrender.com/login", credentials);
         // const result = await axios.post("http://localhost:3000/login", credentials);
         const receivedToken = await result.headers["authorization"];
+        const receivedName = await result.headers["name"];
+        const receivedRole = await result.headers["role"];
         if (receivedToken) {
             sessionStorage.setItem("authToken", receivedToken);
+            sessionStorage.setItem("name", receivedName);
+            sessionStorage.setItem("role", receivedRole);
             setToken(receivedToken);
         }
         if (!receivedToken) {

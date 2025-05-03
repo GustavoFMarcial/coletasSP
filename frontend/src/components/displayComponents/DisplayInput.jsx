@@ -42,12 +42,14 @@ function DisplayInput({addCollect}) {
     return(
         <tbody>
             <tr>
+                <td></td>
                 <td><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
                 <td><input onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
                 <td><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
                 <td><img src="/assets/images/add.png" alt="add button" onClick={() => addCollect(input)}/></td>
             </tr>
             <tr>
+                <td></td>
                 <td><DisplayAutoSearchCompany autoSearch={autoSearchCompany} input={input} handleClick={handleClick}/></td>
                 <td></td>
                 <td><DisplayAutoSearchProduct autoSearch={autoSearchProduct} input={input} handleClick={handleClick}/></td>

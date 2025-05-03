@@ -25,9 +25,12 @@ async function login(app, _) {
             const result = await db.query("SELECT * FROM contas WHERE login = ($1) AND password = ($2)", [req.body.login, req.body.password]);
             if (result.rows.length > 0) {
                 const accessToken = jwt.sign({ user: req.body.login }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "1h"});
-                res.header("authorization", accessToken)
-               .header("Access-Control-Expose-Headers", "authorization")
-               .status(200)
+                res
+                .header("authorization", accessToken)
+                .header("name", result.rows[0].name)
+                .header("role", result.rows[0].role)
+                .header("Access-Control-Expose-Headers", ["authorization", "name", "role"])
+                .status(200);
             }
             if (result.rows.length == 0) {
                 res.status(401).send("Credenciais incorretas");

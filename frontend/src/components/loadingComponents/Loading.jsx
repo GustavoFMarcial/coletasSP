@@ -1,4 +1,5 @@
-import Header from "./Header.jsx";
+import "./Loading.css";
+import Header from "../headerComponents/Header.jsx";
 
 function Loading() {
     return (
