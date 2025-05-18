@@ -144,7 +144,7 @@ function DisplayCollects() {
 
     async function doneCollect(itemId) {
         try {
-            await axios.post("https://coletassp.onrender.com/done", {itemId});
+            await axios.post("https://coletassp.onrender.com/done", {itemId, filter});
             // await axios.post("http://localhost:3000/done", {itemId, filter});
             window.location.reload();
         }
@@ -156,7 +156,7 @@ function DisplayCollects() {
 
     async function editCollect(input, itemId) {
         try {
-            await axios.post("https://coletassp.onrender.com/edit", {input, collaborator});
+            await axios.post("https://coletassp.onrender.com/edit", {input, collaborator, filter, itemId});
             // await axios.post("http://localhost:3000/edit", {input, collaborator, filter, itemId});
             window.location.reload();
         }
@@ -168,7 +168,7 @@ function DisplayCollects() {
 
     async function deleteCollect(itemId) {
         try {
-            await axios.post("https://coletassp.onrender.com/delete", {itemId});
+            await axios.post("https://coletassp.onrender.com/delete", {itemId, filter});
             // await axios.post("http://localhost:3000/delete", {itemId, filter});
             window.location.reload();
         }
