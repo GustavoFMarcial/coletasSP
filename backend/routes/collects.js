@@ -8,34 +8,45 @@ function logTime(label) {
 }
 
 const getOptions = {
-    schema: {
-        response: {
-            200: {
-                type: "array",
-                items: {
-                    type: "object",
-                    properties: {
-                        id: { type: "integer"},
-                        company: { type: "string" },
-                        date: { type: "string" },
-                        product: { type: "string"},
-                        username: { tyle: "string"},
-                    }
-                }
+  schema: {
+    response: {
+      200: {
+        type: "object",
+        properties: {
+          data: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                id: { type: "integer" },
+                company: { type: "string" },
+                date: { type: "string" },
+                product: { type: "string" },
+                username: { type: "string" },
+              },
+              required: ["id", "company", "date", "product", "username"],
             }
-        }
+          },
+          count: { type: "integer" },
+        },
+        required: ["data", "count"],
+      }
     }
+  }
 }
 
 async function collects(app, _) {
     app.get("/:filter", getOptions, async (req, res) => {
         const end = logTime("GET /");
-        const filter = ["coletas", "coletasfeitas", "coletasdeletadas"];
+        const filter = ["coletas", "coletasfeitas", "coletasdeletadas", "coletasaprovar"];
         try {
             if (filter.includes(req.query.filter)) {
-                const query = `SELECT * FROM ${req.query.filter} ORDER BY id ASC`;
-                const result = await db.query(query);
-                res.status(200).send(result.rows);
+                const countQuery = `SELECT COUNT(*) FROM ${req.query.filter}`;
+                const dataQuery = `SELECT * FROM ${req.query.filter} ORDER BY id ASC`;
+                const dataQuery2 = `SELECT * FROM ${req.query.filter} ORDER BY id ASC LIMIT 10 OFFSET ${req.query.page == 1 ? 0 : (req.query.page * 10) - 10}`;
+                const result = await db.query(dataQuery2);
+                const resultCount = await db.query(countQuery);
+                res.status(200).send({data: result.rows, count: Number(resultCount.rows[0].count) == 0 ? 1 : Number(resultCount.rows[0].count)});
             }   
         }
         catch (err) {
@@ -50,12 +61,11 @@ async function collects(app, _) {
     app.post("/add", async (req, res) => {
         const end = logTime("POST /add");
         const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
-        console.log(req.body.collaborator.name);
         try {
             if (companiesArray.includes(req.body.data.company)) {
                 if (dateRegex.test(req.body.data.date)) {
                     if (productsArray.includes(req.body.data.product)) {
-                        await db.query("INSERT INTO coletas (company, date, product, username) VALUES($1, $2, $3, $4)", [req.body.data.company, req.body.data.date, req.body.data.product, req.body.collaborator.name]);
+                        await db.query("INSERT INTO coletasaprovar (company, date, product, username) VALUES($1, $2, $3, $4)", [req.body.data.company, req.body.data.date, req.body.data.product, req.body.collaborator.name]);
                         res.status(201).send("ok");
                     }
                     if (!productsArray.includes(req.body.product)) {
@@ -81,12 +91,17 @@ async function collects(app, _) {
     
     app.post("/done", async (req, res) => {
         const end = logTime("POST /done");
-        console.log(req.body);
         try {
-            const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
-            console.log(result.rows);
-            await db.query("INSERT INTO coletasfeitas (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
-            res.status(200).send("ok");
+            if (req.body.filter == "coletas") {
+                const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
+                await db.query("INSERT INTO coletasfeitas (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
+                res.status(200).send("ok");
+            }
+            if (req.body.filter == "coletasaprovar") {
+                const result = await db.query("DELETE FROM coletasaprovar WHERE id = ($1) RETURNING *", [req.body.itemId]);
+                await db.query("INSERT INTO coletas (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
+                res.status(200).send("ok");
+            }
         }
         catch (err) {
             console.error(err);
@@ -100,9 +115,17 @@ async function collects(app, _) {
     app.post("/delete", async (req, res) => {
         const end = logTime("POST /delete");
         try {
-            const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
-            await db.query("INSERT INTO coletasdeletadas (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
-            res.status(200).send("ok");
+            if (req.body.filter == "coletas") {
+                const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
+                await db.query("INSERT INTO coletasdeletadas (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
+                res.status(200).send("ok");
+            }
+            if (req.body.filter == "coletasaprovar") {
+                const result = await db.query("DELETE FROM coletasaprovar WHERE id = ($1) RETURNING *", [req.body.itemId]);
+                await db.query("INSERT INTO coletasdeletadas (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
+                res.status(200).send("ok");
+            }
+            
         }
         catch (err) {
             console.error(err);
@@ -116,12 +139,22 @@ async function collects(app, _) {
     app.post("/edit", async (req, res) => {
         const end = logTime("POST /edit");
         const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+        console.log("/edit route", req.body.filter);
+        console.log("/edit route", req.body.input);
         try {
             if (companiesArray.includes(req.body.input.company)) {
                 if (dateRegex.test(req.body.input.date)) {
                     if (productsArray.includes(req.body.input.product)) {
-                        await db.query("UPDATE coletas SET company = $1, date = $2, product = $3, username = $4 WHERE id = $5", [req.body.input.company, req.body.input.date, req.body.input.product, req.body.collaborator.name, req.body.input.id ]);
-                        res.status(201).send("ok");
+                        if (req.body.filter == "coletas") {
+                            await db.query("UPDATE coletas SET company = $1, date = $2, product = $3, username = $4 WHERE id = $5", [req.body.input.company, req.body.input.date, req.body.input.product, req.body.collaborator.name, req.body.input.id ]);
+                            const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
+                            await db.query("INSERT INTO coletasaprovar (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
+                            res.status(200).send("ok");
+                        }
+                        if (req.body.filter == "coletasaprovar") {
+                            await db.query("UPDATE coletasaprovar SET company = $1, date = $2, product = $3, username = $4 WHERE id = $5", [req.body.input.company, req.body.input.date, req.body.input.product, req.body.collaborator.name, req.body.input.id ]);
+                            res.status(201).send("ok");
+                        }
                     }
                     if (!productsArray.includes(req.body.product)) {
                         res.status(404).send("Coloque um nome de produto válido");

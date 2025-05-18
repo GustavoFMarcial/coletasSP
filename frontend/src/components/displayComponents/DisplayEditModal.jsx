@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DisplayHeader from "./DisplayHeader";
 import DisplayAutoSearchCompany from "./DisplayAutoSearchCompany.jsx";
 import DisplayAutoSearchProduct from "./DisplayAutoSearchProduct.jsx";
@@ -13,6 +13,15 @@ function EditModal({editCollect, item}) {
         date: item.date,
         product: item.product,
     });
+
+    useEffect(() => {
+        setInput({
+        id: item.id,
+        company: item.company,
+        date: item.date,
+        product: item.product,
+    })
+    }, [item])
 
     function handleInput(event) {
         setInput(i => ({...i, [event.target.name]: event.target.value}));
@@ -57,7 +66,7 @@ function EditModal({editCollect, item}) {
                                 <td><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
                                 <td><input onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
                                 <td><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
-                                <td><img onClick={() => editCollect(input)} src="/assets/images/done.png" alt="done button"/></td>
+                                <td><img onClick={() => editCollect(input, item.id)} src="/assets/images/done.png" alt="done button"/></td>
                             </tr>
                             <tr>
                                 <td></td>
