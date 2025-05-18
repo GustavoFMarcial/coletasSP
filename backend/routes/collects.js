@@ -42,9 +42,8 @@ async function collects(app, _) {
         try {
             if (filter.includes(req.query.filter)) {
                 const countQuery = `SELECT COUNT(*) FROM ${req.query.filter}`;
-                const dataQuery = `SELECT * FROM ${req.query.filter} ORDER BY id ASC`;
-                const dataQuery2 = `SELECT * FROM ${req.query.filter} ORDER BY id ASC LIMIT 10 OFFSET ${req.query.page == 1 ? 0 : (req.query.page * 10) - 10}`;
-                const result = await db.query(dataQuery2);
+                const dataQuery = `SELECT * FROM ${req.query.filter} ORDER BY id ASC LIMIT 10 OFFSET ${req.query.page == 1 ? 0 : (req.query.page * 10) - 10}`;
+                const result = await db.query(dataQuery);
                 const resultCount = await db.query(countQuery);
                 res.status(200).send({data: result.rows, count: Number(resultCount.rows[0].count) == 0 ? 1 : Number(resultCount.rows[0].count)});
             }   
