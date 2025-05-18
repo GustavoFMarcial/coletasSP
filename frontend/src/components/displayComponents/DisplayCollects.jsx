@@ -24,9 +24,9 @@ function DisplayCollects() {
     useEffect(() => {
         async function fetchData() {
             try {
-              const newFilter = "coletas";
+              // const newFilter = "coletas";
               const result = await axios("https://coletassp.onrender.com/", {params: {
-                filter: newFilter,
+                filter: filter,
                 page: page,
               }});
               // const result = await axios("http://localhost:3000/", {params: {
