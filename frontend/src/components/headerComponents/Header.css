@@ -1,5 +1,5 @@
 .header-container {
-    height: 75px;
+    height: 100px;
     display: flex;
     background-color: #EBE8DB;
     justify-content: space-between;
@@ -27,4 +27,33 @@
     color: inherit;
     padding: 8px 16px;
     color: #000000;
+}
+
+.change-password-dialog {
+    position: absolute;
+    top: 30%;
+    left: 38%;
+}
+
+.change-password-dialog[open] {
+    display: flex;
+    height: 200px;
+    width: 500px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.change-password-dialog div label {
+    padding-right: 5px;
+}
+
+.change-password-dialog button {
+    background-color: #EBE8DB;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }

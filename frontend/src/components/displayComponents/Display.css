@@ -45,13 +45,13 @@ th, td {
     border-bottom: 2px solid black;
 }
 
-.dialog-container {
+.edit-dialog-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-dialog {
+.edit-input-dialog {
     position: absolute;
     left: 30%;
     top: 30%

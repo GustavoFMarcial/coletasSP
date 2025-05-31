@@ -65,7 +65,7 @@ function App() {
   return (
     <>
       {token ?
-      <DisplayCollects /> 
+      <DisplayCollects token={token}/> 
       :
       <Suspense fallback={<Loading />}>
         <Login login={login}/>   

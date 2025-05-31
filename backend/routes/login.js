@@ -1,13 +1,27 @@
 import db from "../index.js";
 import jwt from "jsonwebtoken";
-import 'dotenv/config'
+import 'dotenv/config';
+import bcrypt from 'bcrypt';
+
+function verifyToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) return res.send("NT").status(401);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, _) => {
+        if (err) return res.send("IT").status(403);
+    })
+
+    next();
+}
 
 async function login(app, _) {
     app.get("/login", async (req, res) => {
         try {
             const authHeader = req.headers["authorization"];
             const token = authHeader && authHeader.split(" ")[1];
-            if ( !token ) return res.send("NT").status(401);
+            if (!token) return res.send("NT").status(401);
             jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, _) => {
                 if (err) return res.send("IT").status(403);
                 return res.send("VT").status(200);
@@ -17,13 +31,14 @@ async function login(app, _) {
             console.error(err);
             res.status(500).send("Erro no servidor");
         }
-        
     })
 
     app.post("/login", async (req, res) => {
         try {
-            const result = await db.query("SELECT * FROM contas WHERE login = ($1) AND password = ($2)", [req.body.login, req.body.password]);
-            if (result.rows.length > 0) {
+            const result = await db.query("SELECT * FROM contas WHERE login = ($1)", [req.body.login]);
+            const hash = result.rows[0].password;
+            const compare = await bcrypt.compare(req.body.password, hash);
+            if (compare) {
                 const accessToken = jwt.sign({ user: req.body.login }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "1h"});
                 res
                 .header("authorization", accessToken)
@@ -32,13 +47,32 @@ async function login(app, _) {
                 .header("Access-Control-Expose-Headers", ["authorization", "name", "role"])
                 .status(200);
             }
-            if (result.rows.length == 0) {
+            if (!compare) {
                 res.status(401).send("Credenciais incorretas");
             }
         }
         catch (err) {
             console.error(err);
             res.status(500).send("Erro no servidor");
+        }
+    })
+
+    app.post("/password", { preHandler: verifyToken}, async (req, res) => {
+        try {
+            if (!req.body.input || req.body.input == "") {
+                throw new Error("A senha não pode ser em branco");
+            }
+            if (req.body.input.length <= 5) {
+                throw new Error("A senha deve ter mais de 5 caracteres");
+            }
+            const saltRounds = 10;
+            const plainPassword = req.body.input;
+            const hash = await bcrypt.hash(plainPassword, saltRounds);
+            await db.query("UPDATE contas SET password = ($1) WHERE name = ($2) AND role = ($3)", [hash, req.body.name, req.body.role]);
+        }
+        catch (err) {
+            console.error(err);
+            res.status(500).send(err.message);
         }
     })
 }

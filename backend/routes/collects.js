@@ -1,4 +1,6 @@
 import db from "../index.js";
+import jwt from "jsonwebtoken";
+import 'dotenv/config'
 import { companiesArray } from "./companies&products.js";
 import { productsArray } from "./companies&products.js";
 
@@ -35,8 +37,21 @@ const getOptions = {
   }
 }
 
+function verifyToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) return res.send("NT").status(401);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, _) => {
+        if (err) return res.send("IT").status(403);
+    })
+
+    next();
+}
+
 async function collects(app, _) {
-    app.get("/:filter", getOptions, async (req, res) => {
+    app.get("/:filter", { preHandler: verifyToken, schema: getOptions.schema }, async (req, res) => {
         const end = logTime("GET /");
         const filter = ["coletas", "coletasfeitas", "coletasdeletadas", "coletasaprovar"];
         try {
@@ -57,7 +72,7 @@ async function collects(app, _) {
         }
     })
     
-    app.post("/add", async (req, res) => {
+    app.post("/add", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /add");
         const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
         try {
@@ -88,7 +103,7 @@ async function collects(app, _) {
         }
     })
     
-    app.post("/done", async (req, res) => {
+    app.post("/done", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /done");
         try {
             if (req.body.filter == "coletas") {
@@ -111,7 +126,7 @@ async function collects(app, _) {
         }
     })
     
-    app.post("/delete", async (req, res) => {
+    app.post("/delete", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /delete");
         try {
             if (req.body.filter == "coletas") {
@@ -135,7 +150,7 @@ async function collects(app, _) {
         }
     })
     
-    app.post("/edit", async (req, res) => {
+    app.post("/edit", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /edit");
         const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
         console.log("/edit route", req.body.filter);

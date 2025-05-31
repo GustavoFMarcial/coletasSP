@@ -56,8 +56,8 @@ function EditModal({editCollect, item}) {
 
     return (
         <>
-            <div className="dialog-container">
-                <dialog id={item.id}>
+            <div className="edit-dialog-container">
+                <dialog className="edit-input-dialog" id={item.id}>
                     <table>
                         <DisplayHeader />
                         <tbody>
