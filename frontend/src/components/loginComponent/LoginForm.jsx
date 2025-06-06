@@ -16,11 +16,11 @@ function LoginForm({ login }) {
                 <div className="login-container">
                     <div className="login-input">
                         <label>Login</label>
-                        <input onChange={handleInput} value={credentials.login} type="text" name="login" required autoComplete="off"/>
+                        <input className="bg-white border" onChange={handleInput} value={credentials.login} type="text" name="login" required autoComplete="off"/>
                     </div>
                     <div className="password-input">
                         <label>Senha</label>
-                        <input onChange={handleInput} value={credentials.password} type="password" name="password" required autoComplete="off"/>
+                        <input className="bg-white border" onChange={handleInput} value={credentials.password} type="password" name="password" required autoComplete="off"/>
                     </div>
                     <div className="login-button">
                         <button onClick={() => login(credentials)} >Logar</button>

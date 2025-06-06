@@ -1,12 +1,12 @@
 .filter-container {
-    margin-top: 100px;
+    margin-top: 60px;
     display: flex;
     justify-content: center;
     gap: 20px;
 }
 
 .filter-container button {
-    background-color: #EBE8DB;
+    background-color: #F3F4F6;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -22,9 +22,8 @@
 table {
     width: 50%;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 60px;
     padding: 5px 20px 20px 20px;
-    background-color: #EBE8DB;
     border-radius: 10px;
     font-size: 20px;
     border-collapse: collapse;
@@ -42,7 +41,7 @@ th, td {
 }
 
 .mainRow td {
-    border-bottom: 2px solid black;
+    /* border-bottom: 2px solid black; */
 }
 
 .edit-dialog-container {
@@ -73,7 +72,7 @@ input {
 .autosearch {
     margin: 0;
     padding: 0;
-    background-color: #EBE8DB;
+    background-color: #F3F4F6;
     list-style: none;
     position: absolute;
     width: 214px;

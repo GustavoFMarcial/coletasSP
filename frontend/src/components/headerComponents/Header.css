@@ -1,7 +1,7 @@
 .header-container {
     height: 100px;
     display: flex;
-    background-color: #EBE8DB;
+    background-color: #F3F4F6;
     justify-content: space-between;
     align-items: center;
 }

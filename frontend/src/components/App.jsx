@@ -2,6 +2,7 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import axios from "axios";
 import DisplayCollects from "./displayComponents/DisplayCollects.jsx";
 import Loading from "./loadingComponents/Loading.jsx";
+import "../../public/style.css";
 
 function App() {
   const [token, setToken] = useState();
@@ -65,7 +66,9 @@ function App() {
   return (
     <>
       {token ?
-      <DisplayCollects token={token}/> 
+      <Suspense fallback={<Loading />}> 
+        <DisplayCollects token={token}/> 
+      </Suspense>
       :
       <Suspense fallback={<Loading />}>
         <Login login={login}/>   

@@ -6,7 +6,8 @@
 }
 
 .login-container {
-    background-color: #EBE8DB;
+    background-color: #F3F4F6;
+    /* #EBE8DB */
     border-radius: 10px;
     padding: 40px 60px;
     display: flex;
@@ -18,7 +19,6 @@
     display: flex;
     align-items: start;
     flex-direction: column;
-
 }
 
 .login-button {

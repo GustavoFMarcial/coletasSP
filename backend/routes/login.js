@@ -65,7 +65,7 @@ async function login(app, _) {
             if (req.body.input.length <= 5) {
                 throw new Error("A senha deve ter mais de 5 caracteres");
             }
-            const saltRounds = 10;
+            const saltRounds = 12;
             const plainPassword = req.body.input;
             const hash = await bcrypt.hash(plainPassword, saltRounds);
             await db.query("UPDATE contas SET password = ($1) WHERE name = ($2) AND role = ($3)", [hash, req.body.name, req.body.role]);

@@ -10,7 +10,7 @@ import "./Display.css";
 
 function DisplayCollects({ token }) {
     const [data, setData] = useState([]);
-    const [readOnly, setReadOnly] = useState(false);
+    const [readOnly, setReadOnly] = useState(sessionStorage.getItem("readOnly") === "true" ? true : false);
     const [input, setInput] = useState(false);
     const [collaborator, setCollaborator] = useState({
       name: "",
@@ -87,6 +87,7 @@ function DisplayCollects({ token }) {
               //   },
               // });
               sessionStorage.setItem("filter", newFilter);
+              sessionStorage.setItem("readOnly", false);
               setTableRows(result.data.count);
               setData(result.data.data);
               setReadOnly(false);
@@ -121,6 +122,7 @@ function DisplayCollects({ token }) {
               //   },
               // });
               sessionStorage.setItem("filter", newFilter);
+              sessionStorage.setItem("readOnly", true);
               setTableRows(result.data.count);
               setData(result.data.data);
               setReadOnly(true);
@@ -155,6 +157,7 @@ function DisplayCollects({ token }) {
             //     },
             // });
             sessionStorage.setItem("filter", newFilter);
+            sessionStorage.setItem("readOnly", false);
             setTableRows(result.data.count);
             setData(result.data.data);
             setReadOnly(false);
@@ -189,6 +192,7 @@ function DisplayCollects({ token }) {
               //   },
               // });
               sessionStorage.setItem("filter", newFilter);
+              sessionStorage.setItem("readOnly", true);
               setTableRows(result.data.count);
               setData(result.data.data);
               setReadOnly(true);
@@ -256,7 +260,7 @@ function DisplayCollects({ token }) {
             <Header collaborator={collaborator} token={token}/>
             <DisplayFilter filter={filter} approveFilter={approveFilter} toCollectFilter={toCollectFilter} collectedFilter={collectedFilter} deletedCollectsFilter={deletedCollectsFilter}/>
             <table>
-                <DisplayHeader />
+                <DisplayHeader readOnly={readOnly} data={data}/>
                 <Suspense fallback={<Loading />}>
                     <DisplayMap collaborator={collaborator} data={data} readOnly={readOnly} doneCollect={doneCollect} editCollect={editCollect} deleteCollect={deleteCollect}/>
                 </Suspense>

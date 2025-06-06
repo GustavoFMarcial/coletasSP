@@ -8,7 +8,7 @@ function Pagination({ tableRows, handlePagination }) {
 
     useEffect(() => {
         for (let i = 1; i <= paginationNumbers.length; i++) {
-            pattern["button" + i] = "#EBE8DB";
+            pattern["button" + i] = "#F3F4F6";
             if (i == 1) {
                 pattern["button" + i] = "#A5B0B6";
             }

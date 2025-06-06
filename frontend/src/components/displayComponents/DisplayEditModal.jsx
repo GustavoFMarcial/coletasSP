@@ -3,7 +3,7 @@ import DisplayHeader from "./DisplayHeader";
 import DisplayAutoSearchCompany from "./DisplayAutoSearchCompany.jsx";
 import DisplayAutoSearchProduct from "./DisplayAutoSearchProduct.jsx";
 
-function EditModal({editCollect, item}) {
+function EditModal({ editCollect, item }) {
 
     const [autoSearchCompany, setAutoSearchCompany] = useState(false);
     const [autoSearchProduct, setAutoSearchProduct] = useState(false);
@@ -62,11 +62,13 @@ function EditModal({editCollect, item}) {
                         <DisplayHeader />
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
-                                <td><input onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
-                                <td><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
-                                <td><img onClick={() => editCollect(input, item.id)} src="/assets/images/done.png" alt="done button"/></td>
+                                <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"></td>
+                                <td className="border-gray-400 bg-gray-100 border-b-1 text-gray-600 pl-1"><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
+                                <td className="border-l-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
+                                <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
+                                <td className="border-gray-400 bg-gray-100 border-b-1 text-gray-600 pl-1"></td>
+                                <td className="border-gray-400 bg-gray-100 border-b-1 text-gray-600 pl-1 min-w-[25px] min-h-[25px]"><img onClick={() => editCollect(input, item.id)} src="/assets/images/done.png" alt="done button"/></td>
+                                <td className="border-r-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"></td>
                             </tr>
                             <tr>
                                 <td></td>

@@ -7,7 +7,7 @@ function DisplayFilter({ filter, toCollectFilter, collectedFilter, approveFilter
 
     useEffect(() => {
         for (let i = 0; i < buttonsName.length; i++) {
-            pattern[buttonsName[i]] = "#EBE8DB";
+            pattern[buttonsName[i]] = "#F3F4F6";
             if (buttonsName[i] == filter) {
                 pattern[buttonsName[i]] = "#A5B0B6";
             }

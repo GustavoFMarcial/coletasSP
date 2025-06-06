@@ -1,6 +1,6 @@
 import db from "../index.js";
 import jwt from "jsonwebtoken";
-import 'dotenv/config'
+import 'dotenv/config';
 import { companiesArray } from "./companies&products.js";
 import { productsArray } from "./companies&products.js";
 
@@ -139,7 +139,6 @@ async function collects(app, _) {
                 await db.query("INSERT INTO coletasdeletadas (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
                 res.status(200).send("ok");
             }
-            
         }
         catch (err) {
             console.error(err);

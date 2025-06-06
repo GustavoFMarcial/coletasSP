@@ -42,11 +42,13 @@ function DisplayInput({addCollect}) {
     return(
         <tbody>
             <tr>
-                <td></td>
-                <td><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
-                <td><input onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
-                <td><input onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
-                <td><img src="/assets/images/add.png" alt="add button" onClick={() => addCollect(input)}/></td>
+                <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"></td>
+                <td className="border-gray-400 bg-gray-100 border-b-1 border-t-1 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
+                <td className="border-l-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
+                <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
+                <td className="border-gray-400 bg-gray-100 border-b-1 border-t-1 text-gray-600 pl-1"><img src="/assets/images/add.png" alt="add button" onClick={() => addCollect(input)}/></td>
+                <td className="border-gray-400 bg-gray-100 border-b-1 border-t-1 text-gray-600 pl-1"></td>
+                <td className="border-r-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"></td>
             </tr>
             <tr>
                 <td></td>
