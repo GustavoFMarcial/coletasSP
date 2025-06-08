@@ -40,10 +40,6 @@ th, td {
     position: relative;
 }
 
-.mainRow td {
-    /* border-bottom: 2px solid black; */
-}
-
 .edit-dialog-container {
     display: flex;
     justify-content: center;
@@ -52,8 +48,9 @@ th, td {
 
 .edit-input-dialog {
     position: absolute;
-    left: 30%;
-    top: 30%
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 img {
@@ -64,9 +61,9 @@ img:hover {
     cursor: pointer;
 }
 
-input {
+.tr-input input {
     padding: 5px;
-    width: 200px;
+    width: 150px;
 }
 
 .autosearch {
@@ -75,7 +72,7 @@ input {
     background-color: #F3F4F6;
     list-style: none;
     position: absolute;
-    width: 214px;
+    width: 150px;
     top: -9px;
     cursor: pointer;
 }

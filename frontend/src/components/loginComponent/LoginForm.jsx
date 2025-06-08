@@ -23,7 +23,7 @@ function LoginForm({ login }) {
                         <input className="bg-white border" onChange={handleInput} value={credentials.password} type="password" name="password" required autoComplete="off"/>
                     </div>
                     <div className="login-button">
-                        <button onClick={() => login(credentials)} >Logar</button>
+                        <button className="border" onClick={() => login(credentials)} >Logar</button>
                     </div>
                 </div>
             </div>

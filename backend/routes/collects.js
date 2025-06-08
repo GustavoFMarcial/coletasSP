@@ -25,6 +25,9 @@ const getOptions = {
                 date: { type: "string" },
                 product: { type: "string" },
                 username: { type: "string" },
+                volume: { type: "integer" },
+                weight: { type: "integer" },
+                order: { type: "integer" },
               },
               required: ["id", "company", "date", "product", "username"],
             }
@@ -75,12 +78,30 @@ async function collects(app, _) {
     app.post("/add", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /add");
         const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+        const volumeAndWeightRegex = /^(0|[1-9][0-9]{0,11})$/;
+        const orderRegex = /^(0|[1-9][0-9]{0,11})$/;
+        console.log(req.body.data);
         try {
             if (companiesArray.includes(req.body.data.company)) {
                 if (dateRegex.test(req.body.data.date)) {
                     if (productsArray.includes(req.body.data.product)) {
-                        await db.query("INSERT INTO coletasaprovar (company, date, product, username) VALUES($1, $2, $3, $4)", [req.body.data.company, req.body.data.date, req.body.data.product, req.body.collaborator.name]);
-                        res.status(201).send("ok");
+                        if (volumeAndWeightRegex.test(req.body.data.volume)) {
+                            if (volumeAndWeightRegex.test(req.body.data.weight)) {
+                                if (orderRegex.test(req.body.data.order)) {
+                                    await db.query(`INSERT INTO coletasaprovar (company, date, product, username, volume, weight, "order") VALUES($1, $2, $3, $4, $5, $6, $7)`, [req.body.data.company, req.body.data.date, req.body.data.product, req.body.collaborator.name, req.body.data.volume, req.body.data.weight, req.body.data.order]);
+                                    res.status(201).send("ok");
+                                }
+                                if (orderRegex.test(req.body.data.order)) {
+                                    res.status(404).send("Pedido deve ser positivo, inteiro e no máximo 12 dígitos");
+                                } 
+                            }
+                            if (!volumeAndWeightRegex.test(req.body.data.weight)) {
+                            res.status(404).send("Peso deve ser positivo, inteiro e no máximo 12 dígitos");
+                            }
+                        }
+                        if (!volumeAndWeightRegex.test(req.body.data.volume)) {
+                            res.status(404).send("Volume deve ser positivo, inteiro e no máximo 12 dígitos");
+                        }
                     }
                     if (!productsArray.includes(req.body.product)) {
                         res.status(404).send("Coloque um nome de produto válido");
@@ -108,12 +129,12 @@ async function collects(app, _) {
         try {
             if (req.body.filter == "coletas") {
                 const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
-                await db.query("INSERT INTO coletasfeitas (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
+                await db.query(`INSERT INTO coletasfeitas (company, date, product, username, volume, weight, "order") VALUES($1, $2, $3, $4, $5, $6, $7)`, [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username, result.rows[0].volume, result.rows[0].weight, result.rows[0].order]);
                 res.status(200).send("ok");
             }
             if (req.body.filter == "coletasaprovar") {
                 const result = await db.query("DELETE FROM coletasaprovar WHERE id = ($1) RETURNING *", [req.body.itemId]);
-                await db.query("INSERT INTO coletas (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
+                await db.query(`INSERT INTO coletas (company, date, product, username, volume, weight, "order") VALUES($1, $2, $3, $4, $5, $6, $7)`, [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username, result.rows[0].volume, result.rows[0].weight, result.rows[0].order]);
                 res.status(200).send("ok");
             }
         }
@@ -131,12 +152,12 @@ async function collects(app, _) {
         try {
             if (req.body.filter == "coletas") {
                 const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
-                await db.query("INSERT INTO coletasdeletadas (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
+                await db.query(`INSERT INTO coletasdeletadas (company, date, product, username, volume, weight, "order") VALUES($1, $2, $3, $4, $5, $6, $7)`, [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username, result.rows[0].volume, result.rows[0].weight, result.rows[0].order]);
                 res.status(200).send("ok");
             }
             if (req.body.filter == "coletasaprovar") {
                 const result = await db.query("DELETE FROM coletasaprovar WHERE id = ($1) RETURNING *", [req.body.itemId]);
-                await db.query("INSERT INTO coletasdeletadas (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
+                await db.query(`INSERT INTO coletasdeletadas (company, date, product, username, volume, weight, "order") VALUES($1, $2, $3, $4, $5, $6, $7)`, [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username, result.rows[0].volume, result.rows[0].weight, result.rows[0].order]);
                 res.status(200).send("ok");
             }
         }
@@ -159,13 +180,13 @@ async function collects(app, _) {
                 if (dateRegex.test(req.body.input.date)) {
                     if (productsArray.includes(req.body.input.product)) {
                         if (req.body.filter == "coletas") {
-                            await db.query("UPDATE coletas SET company = $1, date = $2, product = $3, username = $4 WHERE id = $5", [req.body.input.company, req.body.input.date, req.body.input.product, req.body.collaborator.name, req.body.input.id ]);
+                            await db.query(`UPDATE coletas SET company = $1, date = $2, product = $3, username = $4, volume = $5, weight = $6, "order" = $7 WHERE id = $8`, [req.body.input.company, req.body.input.date, req.body.input.product, req.body.collaborator.name, req.body.input.volume, req.body.input.weight, req.body.input.order, req.body.input.id ]);
                             const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
-                            await db.query("INSERT INTO coletasaprovar (company, date, product, username) VALUES($1, $2, $3, $4)", [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username]);
+                            await db.query(`INSERT INTO coletasaprovar (company, date, product, username, volume, weight, "order") VALUES($1, $2, $3, $4, $5, $6, $7)`, [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username, result.rows[0].volume, result.rows[0].weight, result.rows[0].order]);
                             res.status(200).send("ok");
                         }
                         if (req.body.filter == "coletasaprovar") {
-                            await db.query("UPDATE coletasaprovar SET company = $1, date = $2, product = $3, username = $4 WHERE id = $5", [req.body.input.company, req.body.input.date, req.body.input.product, req.body.collaborator.name, req.body.input.id ]);
+                            await db.query(`UPDATE coletasaprovar SET company = $1, date = $2, product = $3, username = $4, volume = $5, weight = $6, "order" = $7 WHERE id = $8`, [req.body.input.company, req.body.input.date, req.body.input.product, req.body.collaborator.name, req.body.input.volume, req.body.input.weight, req.body.input.order, req.body.input.id]);
                             res.status(201).send("ok");
                         }
                     }

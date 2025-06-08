@@ -17,19 +17,7 @@ function ChangePasswordModal({ collaborator, token }) {
 
     async function changePassword() {
         try {
-            await axios.post("https://coletassp.onrender.com/password",
-                {
-                    name: collaborator.name,
-                    role: collaborator.role,
-                    input: input
-                },
-                {
-                    headers: {
-                    Authorization: `Bearer ${token}`,
-                    },
-                },
-            );
-            // await axios.post("http://localhost:3000/password",
+            // await axios.post("https://coletassp.onrender.com/password",
             //     {
             //         name: collaborator.name,
             //         role: collaborator.role,
@@ -41,6 +29,18 @@ function ChangePasswordModal({ collaborator, token }) {
             //         },
             //     },
             // );
+            await axios.post("http://localhost:3000/password",
+                {
+                    name: collaborator.name,
+                    role: collaborator.role,
+                    input: input
+                },
+                {
+                    headers: {
+                    Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
             setInput("");
             if (dialogRef.current) {
                 dialogRef.current.close();
@@ -59,9 +59,9 @@ function ChangePasswordModal({ collaborator, token }) {
                 <dialog ref={dialogRef} className="change-password-dialog" id="password-dialog">
                     <div>
                         <label htmlFor="password">Nova senha</label>
-                        <input onChange={handleInput} value={input} type="password" name="password" id="password" required />
+                        <input className="border border-gray-400" onChange={handleInput} value={input} type="password" name="password" id="password" required />
                     </div>
-                    <button type="button" onClick={changePassword}>Mudar senha</button>
+                    <button className="border border-gray-400" type="button" onClick={changePassword}>Mudar senha</button>
                 </dialog>
             </div>  
             <img onClick={openDialog} src="assets/images/lock.svg" alt="" />
