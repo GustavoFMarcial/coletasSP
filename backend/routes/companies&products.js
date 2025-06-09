@@ -1,4 +1,4 @@
-export const companiesArray = ["GMS", "RT Colors", "Potência", "Kaitos", "Papel Safra", "AL Industria", "C&A", "Glasspack", "UHP", "Floresta Trans."];
+export const companiesArray = ["GMS", "RT Colors", "Potência", "Kaitos", "Papel Safra", "AL Industria", "C&A", "Glasspack", "UHP", "Trans. Floresta"];
 export const productsArray = ["Ferragem", "Alumínio", "Plástico Bolha", "Cantoneira", "Abrasivo", "Puxador", "Kit box", "Separador"];
 
 function logTime(label) {
