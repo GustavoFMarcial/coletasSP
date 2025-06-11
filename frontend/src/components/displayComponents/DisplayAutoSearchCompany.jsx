@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-function DisplayAutoSearchCompany({autoSearch, input, handleClick}) {
+function DisplayAutoSearchCompany({ autoSearch, input, handleClick }) {
     const [companies, setCompanies] = useState([]);
 
     useEffect(() => {

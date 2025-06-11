@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DisplayAutoSearchCompany from "./DisplayAutoSearchCompany.jsx";
 import DisplayAutoSearchProduct from "./DisplayAutoSearchProduct.jsx";
 
-function DisplayInput({ addCollect }) {
+function DisplayInput({ addCollect, resetInput }) {
     const [autoSearchCompany, setAutoSearchCompany] = useState(false);
     const [autoSearchProduct, setAutoSearchProduct] = useState(false);
     const [input, setInput] = useState({
@@ -13,6 +13,17 @@ function DisplayInput({ addCollect }) {
         weight: "",
         order: "",
     })
+
+    useEffect(() => {
+        setInput({
+            company: "",
+            date: "",
+            product: "",
+            volume: "",
+            weight: "",
+            order: "",
+        })
+    }, [resetInput])
 
     function handleInput(event) {
         const value = event.target.value;

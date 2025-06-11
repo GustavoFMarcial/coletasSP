@@ -19,6 +19,9 @@ function DisplayCollects({ token }) {
     const [filter, setFilter] = useState(sessionStorage.getItem("filter") || "coletas");
     const [page, setPage] = useState(1);
     const [tableRows, setTableRows] = useState();
+    const [triggerFetch, setTriggerFetch] = useState(0);
+    const [closeModalSignal, setCloseModalSignal] = useState(0);
+    const [resetInput, setResetInput] = useState(0);
     const Loading = lazy(() => import("../loadingComponents/Loading.jsx"));
 
     useEffect(() => {
@@ -61,7 +64,7 @@ function DisplayCollects({ token }) {
           }
 
           fetchData();
-    }, [page, filter])
+    }, [page, filter, triggerFetch])
 
     async function toCollectFilter() {
         try {
@@ -207,7 +210,7 @@ function DisplayCollects({ token }) {
         try {
             await axios.post("https://coletassp.onrender.com/done", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
             // await axios.post("http://localhost:3000/done", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
-            window.location.reload();
+            setTriggerFetch(t => (t + 1));
         }
         catch (err) {
             console.error(err);
@@ -219,7 +222,9 @@ function DisplayCollects({ token }) {
         try {
             await axios.post("https://coletassp.onrender.com/edit", {input, collaborator, filter, itemId}, {headers: { Authorization: `Bearer ${token}` }});
             // await axios.post("http://localhost:3000/edit", {input, collaborator, filter, itemId}, {headers: { Authorization: `Bearer ${token}` }});
-            window.location.reload();
+            // window.location.reload();
+            setTriggerFetch(t => (t + 1));
+            setCloseModalSignal(c => (c + 1));
         }
         catch (err) {
             console.error(err);
@@ -231,7 +236,7 @@ function DisplayCollects({ token }) {
         try {
             await axios.post("https://coletassp.onrender.com/delete", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
             // await axios.post("http://localhost:3000/delete", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
-            window.location.reload();
+            setTriggerFetch(t => (t + 1));
         }
         catch (err) {
             console.error(err);
@@ -243,7 +248,8 @@ function DisplayCollects({ token }) {
         try {
             await axios.post("https://coletassp.onrender.com/add", {data, collaborator}, {headers: { Authorization: `Bearer ${token}` }});
             // await axios.post("http://localhost:3000/add", {data, collaborator}, {headers: { Authorization: `Bearer ${token}` }});
-            window.location.reload();
+            setTriggerFetch(t => (t + 1));
+            setResetInput(r => (r + 1));
         }
         catch (err) {
             console.error(err);
@@ -262,9 +268,9 @@ function DisplayCollects({ token }) {
             <table>
                 <DisplayHeader readOnly={readOnly} data={data}/>
                 <Suspense fallback={<Loading />}>
-                    <DisplayMap collaborator={collaborator} data={data} readOnly={readOnly} doneCollect={doneCollect} editCollect={editCollect} deleteCollect={deleteCollect}/>
+                    <DisplayMap closeModalSignal={closeModalSignal} collaborator={collaborator} data={data} readOnly={readOnly} doneCollect={doneCollect} editCollect={editCollect} deleteCollect={deleteCollect}/>
                 </Suspense>
-                {input ? <DisplayInput addCollect={addCollect}/> : "" }
+                {input ? <DisplayInput resetInput={resetInput} addCollect={addCollect}/> : "" }
             </table>
             <Pagination tableRows={tableRows} handlePagination={handlePagination}/>
         </>

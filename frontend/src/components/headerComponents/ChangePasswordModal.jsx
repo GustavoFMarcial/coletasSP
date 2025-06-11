@@ -64,7 +64,7 @@ function ChangePasswordModal({ collaborator, token }) {
                     <button className="border border-gray-400" type="button" onClick={changePassword}>Mudar senha</button>
                 </dialog>
             </div>  
-            <img onClick={openDialog} src="assets/images/lock.svg" alt="" />
+            <img onClick={openDialog} src="assets/images/lock.svg" alt="padlock" />
         </>
     )
 }

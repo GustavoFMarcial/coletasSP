@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import DisplayHeader from "./DisplayHeader";
 import DisplayAutoSearchCompany from "./DisplayAutoSearchCompany.jsx";
 import DisplayAutoSearchProduct from "./DisplayAutoSearchProduct.jsx";
 
-function EditModal({ editCollect, item }) {
+function EditModal({ editCollect, item, closeModalSignal }) {
+    const dialogRef = useRef(null);
     const [autoSearchCompany, setAutoSearchCompany] = useState(false);
     const [autoSearchProduct, setAutoSearchProduct] = useState(false);
     const [input, setInput] = useState({
@@ -27,6 +28,10 @@ function EditModal({ editCollect, item }) {
         order: item.order,
     })
     }, [item])
+
+    useEffect(() => {
+        dialogRef.current?.close();
+    }, [closeModalSignal])
 
     function handleInput(event) {
         const value = event.target.value;
@@ -68,9 +73,8 @@ function EditModal({ editCollect, item }) {
         setInput(i => ({ ...i, [name]: newValue }));
     }
 
-    function openDialog(id) {
-        const dialog = document.getElementById(`${id}`);
-        dialog.showModal();
+    function openDialog() {
+        dialogRef.current?.showModal();
     }
 
     function handleMouseDown(event) {
@@ -93,7 +97,7 @@ function EditModal({ editCollect, item }) {
     return (
         <>
             <div className="edit-dialog-container">
-                <dialog className="edit-input-dialog" id={item.id}>
+                <dialog ref={dialogRef} className="edit-input-dialog" id={item.id}>
                     <table>
                         <DisplayHeader />
                         <tbody>
