@@ -222,7 +222,6 @@ function DisplayCollects({ token }) {
         try {
             await axios.post("https://coletassp.onrender.com/edit", {input, collaborator, filter, itemId}, {headers: { Authorization: `Bearer ${token}` }});
             // await axios.post("http://localhost:3000/edit", {input, collaborator, filter, itemId}, {headers: { Authorization: `Bearer ${token}` }});
-            // window.location.reload();
             setTriggerFetch(t => (t + 1));
             setCloseModalSignal(c => (c + 1));
         }
