@@ -16,7 +16,7 @@ function EditModal({ editCollect, item, closeModalSignal }) {
         product: item.product,
         volume: item.volume,
         weight: item.weight,
-        order: item.order,
+        order_number: item.order_number,
         loja: item.loja,
     });
 
@@ -28,7 +28,7 @@ function EditModal({ editCollect, item, closeModalSignal }) {
         product: item.product,
         volume: item.volume,
         weight: item.weight,
-        order: item.order,
+        order_number: item.order_number,
         loja: item.loja,
     })
     }, [item])
@@ -40,7 +40,7 @@ function EditModal({ editCollect, item, closeModalSignal }) {
     function handleInput(event) {
         const value = event.target.value;
         const name = event.target.name;
-        const blockedFields = ["volume", "weight", "order"];
+        const blockedFields = ["volume", "weight", "order_number"];
         const onlyDigits = /^[0-9]{0,12}$/;
 
         if (blockedFields.includes(name) && !onlyDigits.test(value)) {
@@ -120,7 +120,7 @@ function EditModal({ editCollect, item, closeModalSignal }) {
                                 <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
                                 <td className="border-gray-400 bg-gray-100 border-b-1 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.volume} type="text" name="volume" placeholder="Volume" required autoComplete="off"/></td>
                                 <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.weight} type="text" name="weight" placeholder="Peso" required autoComplete="off"/></td>
-                                <td className="border-r-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.order} type="text" name="order" placeholder="Pedido" required autoComplete="off"/></td>
+                                <td className="border-r-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.order_number} type="text" name="order_number" placeholder="Pedido" required autoComplete="off"/></td>
                                 <td className="border-r-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.loja} type="text" name="loja" placeholder="Loja" required autoComplete="off"/></td>
                                 <td className="border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"></td>
                                 <td className="border-gray-400 bg-gray-100 border-b-1 text-gray-600 pl-1"><img className="min-w-[25px] min-h-[25px]" onClick={() => editCollect(input, item.id)} src="/assets/images/done.png" alt="done button"/></td>

@@ -18,28 +18,28 @@ const app = Fastify();
 //       },
 // })
 
-const { Client } = pg;
-const db = new Client ({
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    host: process.env.HOST,
+const { Pool } = pg;
+const db = new Pool ({
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    host: process.env.DB_HOST,
     port: process.env.DB_PORT,
-    database: process.env.DATABASE,
+    database: process.env.DB_NAME,
 })
 
-async function connectDB() {
-    try{
-        await db.connect();
-    }
-    catch (err) {
-        console.error(err);
-    }
-}
-connectDB();
+// async function connectDB() {
+//     try{
+//         await db.connect();
+//     }
+//     catch (err) {
+//         console.error(err);
+//     }
+// }
+// connectDB();
 
 await app.register(cors, {
     origin: [
-      "https://coletas-sp.vercel.app",
+    //   "https://coletas-sp.vercel.app",
       "http://localhost:5173",
       "http://201.54.17.248:5173",
     ],
