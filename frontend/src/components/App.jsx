@@ -19,16 +19,16 @@ function App() {
     async function checkUser() {
       if (!token) return;
       try {
-        const result = await axios.get("https://coletassp.onrender.com/login", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        // const result = await axios.get("http://localhost:3000/login", {
+        // const result = await axios.get("https://coletassp.onrender.com/login", {
         //   headers: {
         //     Authorization: `Bearer ${token}`,
         //   },
         // });
+        const result = await axios.get("http://localhost:3000/login", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
       }
       catch (err) {
         console.error(err);
@@ -42,8 +42,8 @@ function App() {
 
   async function login(credentials) {
     try {
-        const result = await axios.post("https://coletassp.onrender.com/login", credentials);
-        // const result = await axios.post("http://localhost:3000/login", credentials);
+        // const result = await axios.post("https://coletassp.onrender.com/login", credentials);
+        const result = await axios.post("http://localhost:3000/login", credentials);
         const receivedToken = await result.headers["authorization"];
         const receivedName = await result.headers["name"];
         const receivedRole = await result.headers["role"];

@@ -30,25 +30,25 @@ function DisplayCollects({ token }) {
               setInput(true);
             }
             try {
-              const result = await axios("https://coletassp.onrender.com/", {
-                params: {
-                  filter: filter,
-                  page: page,
-                },
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-              });
-              // const result = await axios("http://localhost:3000/", {
-              //     params: {
-              //       filter: filter,
-              //       page: page,
-              //     },
-              //     headers: {
-              //       Authorization: `Bearer ${token}`,
-              //     },
+              // const result = await axios("https://coletassp.onrender.com/", {
+              //   params: {
+              //     filter: filter,
+              //     page: page,
               //   },
-              // );
+              //   headers: {
+              //       Authorization: `Bearer ${token}`,
+              //   },
+              // });
+              const result = await axios("http://localhost:3000/", {
+                  params: {
+                    filter: filter,
+                    page: page,
+                  },
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                },
+              );
               const receivedName = sessionStorage.getItem("name");
               const receivedRole = sessionStorage.getItem("role");
               setCollaborator({
@@ -71,24 +71,24 @@ function DisplayCollects({ token }) {
               const newFilter = "coletas";
               setPage(1);
               setFilter(newFilter);
-              const result = await axios("https://coletassp.onrender.com/", {
-                params: {
-                  filter: newFilter,
-                  page: page,
-              },
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-              });
-              // const result = await axios("http://localhost:3000/", {
+              // const result = await axios("https://coletassp.onrender.com/", {
               //   params: {
               //     filter: newFilter,
               //     page: page,
-              //   },
+              // },
               //   headers: {
               //       Authorization: `Bearer ${token}`,
               //   },
               // });
+              const result = await axios("http://localhost:3000/", {
+                params: {
+                  filter: newFilter,
+                  page: page,
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+              });
               sessionStorage.setItem("filter", newFilter);
               sessionStorage.setItem("readOnly", false);
               setTableRows(result.data.count);
@@ -106,16 +106,7 @@ function DisplayCollects({ token }) {
               const newFilter = "coletasfeitas";
               setPage(1);
               setFilter(newFilter);
-              const result = await axios("https://coletassp.onrender.com/", {
-                params: {
-                  filter: newFilter,
-                  page: page,
-                },
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-              });
-              // const result = await axios("http://localhost:3000/", {
+              // const result = await axios("https://coletassp.onrender.com/", {
               //   params: {
               //     filter: newFilter,
               //     page: page,
@@ -124,6 +115,15 @@ function DisplayCollects({ token }) {
               //       Authorization: `Bearer ${token}`,
               //   },
               // });
+              const result = await axios("http://localhost:3000/", {
+                params: {
+                  filter: newFilter,
+                  page: page,
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+              });
               sessionStorage.setItem("filter", newFilter);
               sessionStorage.setItem("readOnly", true);
               setTableRows(result.data.count);
@@ -141,24 +141,24 @@ function DisplayCollects({ token }) {
             const newFilter = "coletasaprovar";
             setPage(1);
             setFilter(newFilter);
-            const result = await axios("https://coletassp.onrender.com/", {
-              params: {
-                filter: newFilter,
-                page: page,
-              },
-              headers: {
-                  Authorization: `Bearer ${token}`,
-              },
-            });
-            // const result = await axios("http://localhost:3000/", {
-            //     params: {
-            //       filter: newFilter,
-            //       page: page,
-            //     },
-            //     headers: {
+            // const result = await axios("https://coletassp.onrender.com/", {
+            //   params: {
+            //     filter: newFilter,
+            //     page: page,
+            //   },
+            //   headers: {
             //       Authorization: `Bearer ${token}`,
-            //     },
+            //   },
             // });
+            const result = await axios("http://localhost:3000/", {
+                params: {
+                  filter: newFilter,
+                  page: page,
+                },
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+            });
             sessionStorage.setItem("filter", newFilter);
             sessionStorage.setItem("readOnly", false);
             setTableRows(result.data.count);
@@ -176,24 +176,24 @@ function DisplayCollects({ token }) {
             const newFilter = "coletasdeletadas";
             setPage(1);
             setFilter(newFilter);
-              const result = await axios("https://coletassp.onrender.com/", {
-                params: {
-                  filter: newFilter,
-                  page: page,
-              },
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-              });
-              // const result = await axios("http://localhost:3000/", {
+              // const result = await axios("https://coletassp.onrender.com/", {
               //   params: {
               //     filter: newFilter,
               //     page: page,
-              //   },
+              // },
               //   headers: {
               //       Authorization: `Bearer ${token}`,
               //   },
               // });
+              const result = await axios("http://localhost:3000/", {
+                params: {
+                  filter: newFilter,
+                  page: page,
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+              });
               sessionStorage.setItem("filter", newFilter);
               sessionStorage.setItem("readOnly", true);
               setTableRows(result.data.count);
@@ -208,8 +208,8 @@ function DisplayCollects({ token }) {
 
     async function doneCollect(itemId) {
         try {
-            await axios.post("https://coletassp.onrender.com/done", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
-            // await axios.post("http://localhost:3000/done", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
+            // await axios.post("https://coletassp.onrender.com/done", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
+            await axios.post("http://localhost:3000/done", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
             setTriggerFetch(t => (t + 1));
         }
         catch (err) {
@@ -220,8 +220,8 @@ function DisplayCollects({ token }) {
 
     async function editCollect(input, itemId) {
         try {
-            await axios.post("https://coletassp.onrender.com/edit", {input, collaborator, filter, itemId}, {headers: { Authorization: `Bearer ${token}` }});
-            // await axios.post("http://localhost:3000/edit", {input, collaborator, filter, itemId}, {headers: { Authorization: `Bearer ${token}` }});
+            // await axios.post("https://coletassp.onrender.com/edit", {input, collaborator, filter, itemId}, {headers: { Authorization: `Bearer ${token}` }});
+            await axios.post("http://localhost:3000/edit", {input, collaborator, filter, itemId}, {headers: { Authorization: `Bearer ${token}` }});
             setTriggerFetch(t => (t + 1));
             setCloseModalSignal(c => (c + 1));
         }
@@ -233,8 +233,8 @@ function DisplayCollects({ token }) {
 
     async function deleteCollect(itemId) {
         try {
-            await axios.post("https://coletassp.onrender.com/delete", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
-            // await axios.post("http://localhost:3000/delete", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
+            // await axios.post("https://coletassp.onrender.com/delete", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
+            await axios.post("http://localhost:3000/delete", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
             setTriggerFetch(t => (t + 1));
         }
         catch (err) {
@@ -245,8 +245,8 @@ function DisplayCollects({ token }) {
 
     async function addCollect(data) {
         try {
-            await axios.post("https://coletassp.onrender.com/add", {data, collaborator}, {headers: { Authorization: `Bearer ${token}` }});
-            // await axios.post("http://localhost:3000/add", {data, collaborator}, {headers: { Authorization: `Bearer ${token}` }});
+            // await axios.post("https://coletassp.onrender.com/add", {data, collaborator}, {headers: { Authorization: `Bearer ${token}` }});
+            await axios.post("http://localhost:3000/add", {data, collaborator}, {headers: { Authorization: `Bearer ${token}` }});
             setTriggerFetch(t => (t + 1));
             setResetInput(r => (r + 1));
         }

@@ -17,19 +17,7 @@ function ChangePasswordModal({ collaborator, token }) {
 
     async function changePassword() {
         try {
-            await axios.post("https://coletassp.onrender.com/password",
-                {
-                    name: collaborator.name,
-                    role: collaborator.role,
-                    input: input
-                },
-                {
-                    headers: {
-                    Authorization: `Bearer ${token}`,
-                    },
-                },
-            );
-            // await axios.post("http://localhost:3000/password",
+            // await axios.post("https://coletassp.onrender.com/password",
             //     {
             //         name: collaborator.name,
             //         role: collaborator.role,
@@ -41,6 +29,18 @@ function ChangePasswordModal({ collaborator, token }) {
             //         },
             //     },
             // );
+            await axios.post("http://localhost:3000/password",
+                {
+                    name: collaborator.name,
+                    role: collaborator.role,
+                    input: input
+                },
+                {
+                    headers: {
+                    Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
             setInput("");
             if (dialogRef.current) {
                 dialogRef.current.close();
