@@ -35,6 +35,7 @@ async function login(app, _) {
 
     app.post("/login", async (req, res) => {
         try {
+            if (req.body.login.length === 0) return res.status(401).send("Credenciais incorretas");
             const result = await db.query("SELECT * FROM contas WHERE login = ($1)", [req.body.login]);
             const hash = result.rows[0].password;
             const compare = await bcrypt.compare(req.body.password, hash);
