@@ -5,7 +5,7 @@ import Loading from "./loadingComponents/Loading.jsx";
 import "../../public/style.css";
 
 function App() {
-  const baseURL = "http://201.54.17.248:3000";
+  const baseURL = "http://operantus.com.br/api";
   const [token, setToken] = useState();
   const Login = lazy(() => import("./loginComponent/Login.jsx"));
 

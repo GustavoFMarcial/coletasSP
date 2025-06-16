@@ -9,7 +9,7 @@ import Pagination from "../paginationComponent/Pagination.jsx";
 import "./Display.css";
 
 function DisplayCollects({ token }) {
-    const baseURL = "http://201.54.17.248:3000";
+    const baseURL = "http://operantus.com.br/api";
     const [data, setData] = useState([]);
     const [readOnly, setReadOnly] = useState(sessionStorage.getItem("readOnly") === "true" ? true : false);
     const [input, setInput] = useState(false);

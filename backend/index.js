@@ -22,7 +22,7 @@ console.log({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
+  port: process.env.DB_PORT,
   database: process.env.DB_NAME,
 });
 
@@ -60,7 +60,9 @@ await app.register(cors, {
     //   "https://coletas-sp.vercel.app",
         "http://localhost:5173",
         "http://201.54.17.248:5173",
-        "http://201.54.17.248"
+        "http://201.54.17.248",
+        "http://operantus.com.br",
+        "http://www.operantus.com.br",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 });
