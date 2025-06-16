@@ -50,8 +50,9 @@ const db = new Pool ({
 await app.register(cors, {
     origin: [
     //   "https://coletas-sp.vercel.app",
-      "http://localhost:5173",
-      "http://201.54.17.248:5173",
+        "http://localhost:5173",
+        "http://201.54.17.248:5173",
+        "http://201.54.17.248"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 });

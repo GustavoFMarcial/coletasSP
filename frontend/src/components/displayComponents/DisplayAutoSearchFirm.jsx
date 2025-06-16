@@ -2,13 +2,14 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 function DisplayAutoSearchFirm({ autoSearch, input, handleClick }) {
+    const baseURL = "http://201.54.17.248:3000";
     const [firm, setFirm] = useState([]);
 
     useEffect(() => {
         async function getFirm() {
             try {
                 // const result = await axios.get("https://coletassp.onrender.com/firm");
-                const result = await axios.get("http://localhost:3000/firm");
+                const result = await axios.get(`${baseURL}/firm`);
                 setFirm(result.data);
             }
             catch (err) {

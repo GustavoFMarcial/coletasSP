@@ -5,6 +5,7 @@ import Loading from "./loadingComponents/Loading.jsx";
 import "../../public/style.css";
 
 function App() {
+  const baseURL = "http://201.54.17.248:3000";
   const [token, setToken] = useState();
   const Login = lazy(() => import("./loginComponent/Login.jsx"));
 
@@ -24,7 +25,7 @@ function App() {
         //     Authorization: `Bearer ${token}`,
         //   },
         // });
-        const result = await axios.get("http://localhost:3000/login", {
+        const result = await axios.get(`${baseURL}/login`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -43,7 +44,7 @@ function App() {
   async function login(credentials) {
     try {
         // const result = await axios.post("https://coletassp.onrender.com/login", credentials);
-        const result = await axios.post("http://localhost:3000/login", credentials);
+        const result = await axios.post(`${baseURL}/login`, credentials);
         const receivedToken = await result.headers["authorization"];
         const receivedName = await result.headers["name"];
         const receivedRole = await result.headers["role"];
