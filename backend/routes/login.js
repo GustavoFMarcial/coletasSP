@@ -17,7 +17,7 @@ function verifyToken(req, res, next) {
 }
 
 async function login(app, _) {
-    app.get("/api/login", async (req, res) => {
+    app.get("/login", async (req, res) => {
         try {
             const authHeader = req.headers["authorization"];
             const token = authHeader && authHeader.split(" ")[1];
@@ -33,7 +33,7 @@ async function login(app, _) {
         }
     })
 
-    app.post("/api/login", async (req, res) => {
+    app.post("/login", async (req, res) => {
         try {
             if (req.body.login.length === 0) return res.status(401).send("Credenciais incorretas");
             const result = await db.query("SELECT * FROM contas WHERE login = ($1)", [req.body.login]);
@@ -58,7 +58,7 @@ async function login(app, _) {
         }
     })
 
-    app.post("/api/password", { preHandler: verifyToken}, async (req, res) => {
+    app.post("/password", { preHandler: verifyToken}, async (req, res) => {
         try {
             if (!req.body.input || req.body.input == "") {
                 throw new Error("A senha não pode ser em branco");

@@ -21,7 +21,7 @@ const getOptions = {
 }
 
 async function companiesAndProducts(app, _) {
-    app.get("/api/companies", getOptions, (req, res) => {
+    app.get("/companies", getOptions, (req, res) => {
         const end = logTime("GET /companies");
         try {
             res.status(200).send(companiesArray);
@@ -35,7 +35,7 @@ async function companiesAndProducts(app, _) {
         }
     })
 
-    app.get("/api/products", getOptions, (req, res) => {
+    app.get("/products", getOptions, (req, res) => {
         const end = logTime("GET /products");
         try {
             res.status(200).send(productsArray);
@@ -49,7 +49,7 @@ async function companiesAndProducts(app, _) {
         }
     })
 
-    app.get("/api/firm", getOptions, (req, res) => {
+    app.get("/firm", getOptions, (req, res) => {
         const end = logTime("GET /products");
         try {
             res.status(200).send(firmArray);

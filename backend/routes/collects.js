@@ -56,7 +56,7 @@ function verifyToken(req, res, next) {
 }
 
 async function collects(app, _) {
-    app.get("/api/:filter", { preHandler: verifyToken, schema: getOptions.schema }, async (req, res) => {
+    app.get("/:filter", { preHandler: verifyToken, schema: getOptions.schema }, async (req, res) => {
         const end = logTime("GET /");
         const filter = ["coletas", "coletasfeitas", "coletasdeletadas", "coletasaprovar"];
         try {
@@ -77,7 +77,7 @@ async function collects(app, _) {
         }
     })
     
-    app.post("/api/add", { preHandler: verifyToken }, async (req, res) => {
+    app.post("/add", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /add");
         const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
         const volumeAndWeightRegex = /^(0|[1-9][0-9]{0,11})$/;
@@ -131,7 +131,7 @@ async function collects(app, _) {
         }
     })
     
-    app.post("/api/done", { preHandler: verifyToken }, async (req, res) => {
+    app.post("/done", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /done");
         try {
             if (req.body.filter == "coletas") {
@@ -154,7 +154,7 @@ async function collects(app, _) {
         }
     })
     
-    app.post("/api/delete", { preHandler: verifyToken }, async (req, res) => {
+    app.post("/delete", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /delete");
         try {
             if (req.body.filter == "coletas") {
@@ -177,7 +177,7 @@ async function collects(app, _) {
         }
     })
     
-    app.post("/api/edit", { preHandler: verifyToken }, async (req, res) => {
+    app.post("/edit", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /edit");
         const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
         console.log("/edit route", req.body.filter);
