@@ -2,14 +2,14 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 function DisplayAutoSearchCompany({ autoSearch, input, handleClick }) {
-    const baseURL = "http://operantus.com.br/api";
+    const baseURL = "http://operantus.com.br/api/";
     const [companies, setCompanies] = useState([]);
 
     useEffect(() => {
         async function getCompanies() {
             try {
                 // const result = await axios.get("https://coletassp.onrender.com/companies");
-                const result = await axios.get(`${baseURL}/companies`);
+                const result = await axios.get(`${baseURL}companies`);
                 setCompanies(result.data);
             }
             catch (err) {

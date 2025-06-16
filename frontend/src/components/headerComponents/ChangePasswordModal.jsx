@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useRef } from "react";
 
 function ChangePasswordModal({ collaborator, token }) {
-    const baseURL = "http://operantus.com.br/api";
+    const baseURL = "http://operantus.com.br/api/";;
     const [input, setInput] = useState("");
     const dialogRef = useRef(null);
 
@@ -30,7 +30,7 @@ function ChangePasswordModal({ collaborator, token }) {
             //         },
             //     },
             // );
-            await axios.post(`${baseURL}/password`,
+            await axios.post(`${baseURL}password`,
                 {
                     name: collaborator.name,
                     role: collaborator.role,
