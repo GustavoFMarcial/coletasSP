@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 function DisplayAutoSearchFirm({ autoSearch, input, handleClick }) {
-    const baseURL = "http://operantus.com.br/api";
+    const baseURL = "/api";
     const [firm, setFirm] = useState([]);
 
     useEffect(() => {
