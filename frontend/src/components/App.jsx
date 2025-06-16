@@ -5,7 +5,7 @@ import Loading from "./loadingComponents/Loading.jsx";
 import "../../public/style.css";
 
 function App() {
-  const baseURL = "http://operantus.com.br/api/";
+  const baseURL = "http://operantus.com.br/api";
   const [token, setToken] = useState();
   const Login = lazy(() => import("./loginComponent/Login.jsx"));
 
@@ -25,7 +25,7 @@ function App() {
         //     Authorization: `Bearer ${token}`,
         //   },
         // });
-        const result = await axios.get(`${baseURL}login`, {
+        const result = await axios.get(`${baseURL}/login`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -44,7 +44,7 @@ function App() {
   async function login(credentials) {
     try {
         // const result = await axios.post("https://coletassp.onrender.com/login", credentials);
-        const result = await axios.post(`${baseURL}login`, credentials);
+        const result = await axios.post(`${baseURL}/login`, credentials);
         const receivedToken = result.headers["authorization"];
         const receivedName = result.headers["name"];
         const receivedRole = result.headers["role"];
