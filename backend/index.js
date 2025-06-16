@@ -18,24 +18,34 @@ const app = Fastify();
 //       },
 // })
 
-const { Pool } = pg;
-const db = new Pool ({
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DB_NAME,
+// const { Pool } = pg;
+// const db = new Pool ({
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     host: process.env.DB_HOST,
+//     port: process.env.DB_PORT,
+//     database: process.env.DB_NAME,
+// })
+
+const { Client } = pg;
+const db = new Client ({
+    user: "postgres",
+    password: "169542",
+    host: "localhost",
+    port: 5432,
+    database: "coletasSP",
 })
 
-// async function connectDB() {
-//     try{
-//         await db.connect();
-//     }
-//     catch (err) {
-//         console.error(err);
-//     }
-// }
-// connectDB();
+async function connectDB() {
+    try{
+        await db.connect();
+        console.log("Conectado ao banco de dados");
+    }
+    catch (err) {
+        console.error(err);
+    }
+}
+connectDB();
 
 await app.register(cors, {
     origin: [
