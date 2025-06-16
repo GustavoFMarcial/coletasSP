@@ -45,9 +45,9 @@ function App() {
     try {
         // const result = await axios.post("https://coletassp.onrender.com/login", credentials);
         const result = await axios.post(`${baseURL}login`, credentials);
-        const receivedToken = await result.headers["authorization"];
-        const receivedName = await result.headers["name"];
-        const receivedRole = await result.headers["role"];
+        const receivedToken = result.headers["authorization"];
+        const receivedName = result.headers["name"];
+        const receivedRole = result.headers["role"];
         if (receivedToken) {
             sessionStorage.setItem("authToken", receivedToken);
             sessionStorage.setItem("name", receivedName);
