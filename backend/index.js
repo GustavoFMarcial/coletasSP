@@ -63,6 +63,8 @@ await app.register(cors, {
         "http://201.54.17.248",
         "http://operantus.com.br",
         "http://www.operantus.com.br",
+        "https://operantus.com.br",
+        "https://www.operantus.com.br",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 });
