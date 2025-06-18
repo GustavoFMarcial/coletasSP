@@ -18,18 +18,6 @@ function ChangePasswordModal({ collaborator, token }) {
 
     async function changePassword() {
         try {
-            // await axios.post("https://coletassp.onrender.com/password",
-            //     {
-            //         name: collaborator.name,
-            //         role: collaborator.role,
-            //         input: input
-            //     },
-            //     {
-            //         headers: {
-            //         Authorization: `Bearer ${token}`,
-            //         },
-            //     },
-            // );
             await axios.post(`${baseURL}/password`,
                 {
                     name: collaborator.name,

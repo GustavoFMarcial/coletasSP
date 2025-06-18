@@ -20,11 +20,6 @@ function App() {
     async function checkUser() {
       if (!token) return;
       try {
-        // const result = await axios.get("https://coletassp.onrender.com/login", {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // });
         const result = await axios.get(`${baseURL}/login`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -43,7 +38,6 @@ function App() {
 
   async function login(credentials) {
     try {
-        // const result = await axios.post("https://coletassp.onrender.com/login", credentials);
         const result = await axios.post(`${baseURL}/login`, credentials);
         const receivedToken = result.headers["authorization"];
         const receivedName = result.headers["name"];

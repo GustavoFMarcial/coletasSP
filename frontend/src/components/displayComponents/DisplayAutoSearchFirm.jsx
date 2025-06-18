@@ -8,7 +8,6 @@ function DisplayAutoSearchFirm({ autoSearch, input, handleClick }) {
     useEffect(() => {
         async function getFirm() {
             try {
-                // const result = await axios.get("https://coletassp.onrender.com/firm");
                 const result = await axios.get(`${baseURL}/firm`);
                 setFirm(result.data);
             }

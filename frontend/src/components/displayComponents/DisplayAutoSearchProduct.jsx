@@ -8,7 +8,6 @@ function DisplayAutoSearchProduct({ autoSearch, input, handleClick }) {
     useEffect(() => {
         async function getProducts() {
             try {
-                // const result = await axios.get("https://coletassp.onrender.com/products");
                 const result = await axios.get(`${baseURL}/products`);
                 setCompanies(result.data);
             }
