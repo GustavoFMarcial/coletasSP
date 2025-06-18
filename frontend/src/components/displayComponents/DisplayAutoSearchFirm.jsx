@@ -2,13 +2,12 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 function DisplayAutoSearchFirm({ autoSearch, input, handleClick }) {
-    const baseURL = "https://operantus.com.br/api";
+    const baseURL = import.meta.env.VITE_API_BASE_URL;
     const [firm, setFirm] = useState([]);
 
     useEffect(() => {
         async function getFirm() {
             try {
-                // const result = await axios.get("https://coletassp.onrender.com/firm");
                 const result = await axios.get(`${baseURL}/firm`);
                 setFirm(result.data);
             }

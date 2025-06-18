@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useRef } from "react";
 
 function ChangePasswordModal({ collaborator, token }) {
-    const baseURL = "https://operantus.com.br/api";
+    const baseURL = import.meta.env.VITE_API_BASE_URL;
     const [input, setInput] = useState("");
     const dialogRef = useRef(null);
 
@@ -18,18 +18,6 @@ function ChangePasswordModal({ collaborator, token }) {
 
     async function changePassword() {
         try {
-            // await axios.post("https://coletassp.onrender.com/password",
-            //     {
-            //         name: collaborator.name,
-            //         role: collaborator.role,
-            //         input: input
-            //     },
-            //     {
-            //         headers: {
-            //         Authorization: `Bearer ${token}`,
-            //         },
-            //     },
-            // );
             await axios.post(`${baseURL}/password`,
                 {
                     name: collaborator.name,

@@ -9,7 +9,7 @@ import Pagination from "../paginationComponent/Pagination.jsx";
 import "./Display.css";
 
 function DisplayCollects({ token }) {
-    const baseURL = "https://operantus.com.br/api";
+    const baseURL = import.meta.env.VITE_API_BASE_URL;
     const [data, setData] = useState([]);
     const [readOnly, setReadOnly] = useState(sessionStorage.getItem("readOnly") === "true" ? true : false);
     const [input, setInput] = useState(false);
@@ -31,16 +31,7 @@ function DisplayCollects({ token }) {
               setInput(true);
             }
             try {
-              // const result = await axios("https://coletassp.onrender.com/", {
-              //   params: {
-              //     filter: filter,
-              //     page: page,
-              //   },
-              //   headers: {
-              //       Authorization: `Bearer ${token}`,
-              //   },
-              // });
-              const result = await axios(`${baseURL}`, {
+              const result = await axios(`${baseURL}/`, {
                   params: {
                     filter: filter,
                     page: page,
@@ -72,16 +63,7 @@ function DisplayCollects({ token }) {
               const newFilter = "coletas";
               setPage(1);
               setFilter(newFilter);
-              // const result = await axios("https://coletassp.onrender.com/", {
-              //   params: {
-              //     filter: newFilter,
-              //     page: page,
-              // },
-              //   headers: {
-              //       Authorization: `Bearer ${token}`,
-              //   },
-              // });
-              const result = await axios(`${baseURL}`, {
+              const result = await axios(`${baseURL}/`, {
                 params: {
                   filter: newFilter,
                   page: page,
@@ -107,16 +89,7 @@ function DisplayCollects({ token }) {
               const newFilter = "coletasfeitas";
               setPage(1);
               setFilter(newFilter);
-              // const result = await axios("https://coletassp.onrender.com/", {
-              //   params: {
-              //     filter: newFilter,
-              //     page: page,
-              //   },
-              //   headers: {
-              //       Authorization: `Bearer ${token}`,
-              //   },
-              // });
-              const result = await axios(`${baseURL}`, {
+              const result = await axios(`${baseURL}/`, {
                 params: {
                   filter: newFilter,
                   page: page,
@@ -142,16 +115,7 @@ function DisplayCollects({ token }) {
             const newFilter = "coletasaprovar";
             setPage(1);
             setFilter(newFilter);
-            // const result = await axios("https://coletassp.onrender.com/", {
-            //   params: {
-            //     filter: newFilter,
-            //     page: page,
-            //   },
-            //   headers: {
-            //       Authorization: `Bearer ${token}`,
-            //   },
-            // });
-            const result = await axios(`${baseURL}`, {
+            const result = await axios(`${baseURL}/`, {
                 params: {
                   filter: newFilter,
                   page: page,
@@ -177,16 +141,7 @@ function DisplayCollects({ token }) {
             const newFilter = "coletasdeletadas";
             setPage(1);
             setFilter(newFilter);
-              // const result = await axios("https://coletassp.onrender.com/", {
-              //   params: {
-              //     filter: newFilter,
-              //     page: page,
-              // },
-              //   headers: {
-              //       Authorization: `Bearer ${token}`,
-              //   },
-              // });
-              const result = await axios(`${baseURL}`, {
+              const result = await axios(`${baseURL}/`, {
                 params: {
                   filter: newFilter,
                   page: page,
@@ -209,7 +164,6 @@ function DisplayCollects({ token }) {
 
     async function doneCollect(itemId) {
         try {
-            // await axios.post("https://coletassp.onrender.com/done", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
             await axios.post(`${baseURL}/done`, {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
             setTriggerFetch(t => (t + 1));
         }
@@ -221,7 +175,6 @@ function DisplayCollects({ token }) {
 
     async function editCollect(input, itemId) {
         try {
-            // await axios.post("https://coletassp.onrender.com/edit", {input, collaborator, filter, itemId}, {headers: { Authorization: `Bearer ${token}` }});
             await axios.post(`${baseURL}/edit`, {input, collaborator, filter, itemId}, {headers: { Authorization: `Bearer ${token}` }});
             setTriggerFetch(t => (t + 1));
             setCloseModalSignal(c => (c + 1));
@@ -234,7 +187,6 @@ function DisplayCollects({ token }) {
 
     async function deleteCollect(itemId) {
         try {
-            // await axios.post("https://coletassp.onrender.com/delete", {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
             await axios.post(`${baseURL}/delete`, {itemId, filter}, {headers: { Authorization: `Bearer ${token}` }});
             setTriggerFetch(t => (t + 1));
         }
@@ -246,7 +198,6 @@ function DisplayCollects({ token }) {
 
     async function addCollect(data) {
         try {
-            // await axios.post("https://coletassp.onrender.com/add", {data, collaborator}, {headers: { Authorization: `Bearer ${token}` }});
             await axios.post(`${baseURL}/add`, {data, collaborator}, {headers: { Authorization: `Bearer ${token}` }});
             setTriggerFetch(t => (t + 1));
             setResetInput(r => (r + 1));

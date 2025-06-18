@@ -5,7 +5,7 @@ import Loading from "./loadingComponents/Loading.jsx";
 import "../../public/style.css";
 
 function App() {
-  const baseURL = "https://operantus.com.br/api";
+  const baseURL = import.meta.env.VITE_API_BASE_URL;
   const [token, setToken] = useState();
   const Login = lazy(() => import("./loginComponent/Login.jsx"));
 
@@ -20,11 +20,6 @@ function App() {
     async function checkUser() {
       if (!token) return;
       try {
-        // const result = await axios.get("https://coletassp.onrender.com/login", {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // });
         const result = await axios.get(`${baseURL}/login`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -43,7 +38,6 @@ function App() {
 
   async function login(credentials) {
     try {
-        // const result = await axios.post("https://coletassp.onrender.com/login", credentials);
         const result = await axios.post(`${baseURL}/login`, credentials);
         const receivedToken = result.headers["authorization"];
         const receivedName = result.headers["name"];
