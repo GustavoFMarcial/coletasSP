@@ -3,7 +3,7 @@ import "./Header.css";
 function HeaderLogin() {
     return (
             <div className="header-container">
-                <a href="#">Coletas SP</a>
+                <a href="#">Operantus</a>
                 <div className="nav-items-container">
                 </div>
             </div>

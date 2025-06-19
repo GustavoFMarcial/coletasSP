@@ -2,13 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import DisplayHeader from "./DisplayHeader";
 import DisplayAutoSearchCompany from "./DisplayAutoSearchCompany.jsx";
 import DisplayAutoSearchProduct from "./DisplayAutoSearchProduct.jsx";
-import DisplayAutoSearchFirm from "./DisplayAutoSearchFirm.jsx";
+import DisplayAutoSearchBranch from "./DisplayAutoSearchBranch.jsx";
 
 function EditModal({ editCollect, item, closeModalSignal }) {
     const dialogRef = useRef(null);
     const [autoSearchCompany, setAutoSearchCompany] = useState(false);
     const [autoSearchProduct, setAutoSearchProduct] = useState(false);
-    const [autoSearchFirm, setAutoSearchFirm] = useState(false);
+    const [autoSearchBranch, setAutoSearchBranch] = useState(false);
     const [input, setInput] = useState({
         id: item.id,
         company: item.company,
@@ -17,7 +17,7 @@ function EditModal({ editCollect, item, closeModalSignal }) {
         volume: item.volume,
         weight: item.weight,
         order_number: item.order_number,
-        loja: item.loja,
+        branch: item.branch,
     });
 
     useEffect(() => {
@@ -29,7 +29,7 @@ function EditModal({ editCollect, item, closeModalSignal }) {
         volume: item.volume,
         weight: item.weight,
         order_number: item.order_number,
-        loja: item.loja,
+        branch: item.branch,
     })
     }, [item])
 
@@ -85,17 +85,17 @@ function EditModal({ editCollect, item, closeModalSignal }) {
         if (event.target.name == "company") {
             setAutoSearchCompany(true);
             setAutoSearchProduct(false);
-            setAutoSearchFirm(false);
+            setAutoSearchBranch(false);
         }
         if (event.target.name == "product") {   
            setAutoSearchCompany(false);
             setAutoSearchProduct(true);
-            setAutoSearchFirm(false);
+            setAutoSearchBranch(false);
         }
-        if (event.target.name == "loja") {   
+        if (event.target.name == "branch") {   
             setAutoSearchCompany(false);
             setAutoSearchProduct(false);
-            setAutoSearchFirm(true);
+            setAutoSearchBranch(true);
         }
     }
 
@@ -103,7 +103,7 @@ function EditModal({ editCollect, item, closeModalSignal }) {
         setInput(i => ({...i, [event.target.name]: event.target.value}));
         setAutoSearchCompany(false);
         setAutoSearchProduct(false);
-        setAutoSearchFirm(false);
+        setAutoSearchBranch(false);
     }
 
     return (
@@ -121,7 +121,7 @@ function EditModal({ editCollect, item, closeModalSignal }) {
                                 <td className="border-gray-400 bg-gray-100 border-b-1 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.volume} type="text" name="volume" placeholder="Volume" required autoComplete="off"/></td>
                                 <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.weight} type="text" name="weight" placeholder="Peso" required autoComplete="off"/></td>
                                 <td className="border-r-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.order_number} type="text" name="order_number" placeholder="Pedido" required autoComplete="off"/></td>
-                                <td className="border-r-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.loja} type="text" name="loja" placeholder="Loja" required autoComplete="off"/></td>
+                                <td className="border-r-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.branch} type="text" name="branch" placeholder="Loja" required autoComplete="off"/></td>
                                 <td className="border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"></td>
                                 <td className="border-gray-400 bg-gray-100 border-b-1 text-gray-600 pl-1"><img className="min-w-[25px] min-h-[25px]" onClick={() => editCollect(input, item.id)} src="/assets/images/done.png" alt="done button"/></td>
                                 <td className="border-r-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"></td>
@@ -134,7 +134,7 @@ function EditModal({ editCollect, item, closeModalSignal }) {
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><DisplayAutoSearchFirm autoSearch={autoSearchFirm} input={input} handleClick={handleClick}/></td>
+                                <td><DisplayAutoSearchBranch autoSearch={autoSearchBranch} input={input} handleClick={handleClick}/></td>
                             </tr>
                         </tbody>
                     </table>

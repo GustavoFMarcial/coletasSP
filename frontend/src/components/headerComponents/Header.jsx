@@ -8,7 +8,7 @@ function Header({ collaborator, token }) {
 
     return (
             <div className="header-container">
-                <a href="#">Coletas SP</a>
+                <a href="#">Operantus</a>
                 <div className="nav-items-container">
                     <p>{collaborator.name}</p>
                     <p>{collaborator.role}</p>

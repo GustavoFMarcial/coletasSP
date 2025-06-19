@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import DisplayAutoSearchCompany from "./DisplayAutoSearchCompany.jsx";
 import DisplayAutoSearchProduct from "./DisplayAutoSearchProduct.jsx";
-import DisplayAutoSearchFirm from "./DisplayAutoSearchFirm.jsx";
+import DisplayAutoSearchBranch from "./DisplayAutoSearchBranch.jsx";
 
 function DisplayInput({ addCollect, resetInput }) {
     const [autoSearchCompany, setAutoSearchCompany] = useState(false);
     const [autoSearchProduct, setAutoSearchProduct] = useState(false);
-    const [autoSearchFirm, setAutoSearchFirm] = useState(false);
+    const [autoSearchBranch, setAutoSearchBranch] = useState(false);
     const [input, setInput] = useState({
         company: "",
         date: "",
@@ -14,7 +14,7 @@ function DisplayInput({ addCollect, resetInput }) {
         volume: "",
         weight: "",
         order_number: "",
-        loja: "",
+        branch: "",
     })
 
     useEffect(() => {
@@ -25,7 +25,7 @@ function DisplayInput({ addCollect, resetInput }) {
             volume: "",
             weight: "",
             order_number: "",
-            loja: "",
+            branch: "",
         })
     }, [resetInput])
 
@@ -73,17 +73,17 @@ function DisplayInput({ addCollect, resetInput }) {
         if (event.target.name == "company") {
             setAutoSearchCompany(true);
             setAutoSearchProduct(false);
-            setAutoSearchFirm(false);
+            setAutoSearchBranch(false);
         }
         if (event.target.name == "product") {   
             setAutoSearchCompany(false);
             setAutoSearchProduct(true);
-            setAutoSearchFirm(false);
+            setAutoSearchBranch(false);
         }
-        if (event.target.name == "loja") {
+        if (event.target.name == "branch") {
             setAutoSearchCompany(false);
             setAutoSearchProduct(false);
-            setAutoSearchFirm(true);
+            setAutoSearchBranch(true);
         }
     }
 
@@ -91,7 +91,7 @@ function DisplayInput({ addCollect, resetInput }) {
         setInput(i => ({...i, [event.target.name]: event.target.value}));
         setAutoSearchCompany(false);
         setAutoSearchProduct(false);
-        setAutoSearchFirm(false);
+        setAutoSearchBranch(false);
     }
 
     return(
@@ -104,7 +104,7 @@ function DisplayInput({ addCollect, resetInput }) {
                 <td className="border-gray-400 bg-gray-100 border-b-1 border-t-1 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.volume} type="text" name="volume" placeholder="Volume" required autoComplete="off"/></td>
                 <td className="border-gray-400 bg-gray-100 border-l-1 border-b-1 border-t-1 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.weight} type="text" name="weight" placeholder="Peso" required autoComplete="off"/></td>
                 <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.order_number} type="text" name="order_number" placeholder="Pedido" required autoComplete="off"/></td>
-                <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.loja} type="text" name="loja" placeholder="Loja" required autoComplete="off"/></td>
+                <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.branch} type="text" name="branch" placeholder="Loja" required autoComplete="off"/></td>
                 <td className="border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"></td>
                 <td className="border-gray-400 bg-gray-100 border-b-1 border-t-1 text-gray-600 pl-1"><img className="min-w-[25px] min-h-[25px]" src="/assets/images/add.png" alt="add button" onClick={() => addCollect(input)}/></td>
                 <td className="border-r-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"></td>
@@ -117,7 +117,7 @@ function DisplayInput({ addCollect, resetInput }) {
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><DisplayAutoSearchFirm autoSearch={autoSearchFirm} input={input} handleClick={handleClick}/></td>
+                <td><DisplayAutoSearchBranch autoSearch={autoSearchBranch} input={input} handleClick={handleClick}/></td>
             </tr>
         </tbody>
     )

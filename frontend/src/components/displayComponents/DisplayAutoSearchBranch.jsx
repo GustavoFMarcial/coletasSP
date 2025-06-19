@@ -1,15 +1,15 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-function DisplayAutoSearchFirm({ autoSearch, input, handleClick }) {
+function DisplayAutoSearchBranch({ autoSearch, input, handleClick }) {
     const baseURL = import.meta.env.VITE_API_BASE_URL;
-    const [firm, setFirm] = useState([]);
+    const [branch, setBranch] = useState([]);
 
     useEffect(() => {
-        async function getFirm() {
+        async function getBranch() {
             try {
-                const result = await axios.get(`${baseURL}/firm`);
-                setFirm(result.data);
+                const result = await axios.get(`${baseURL}/branch`);
+                setBranch(result.data);
             }
             catch (err) {
                 console.error(err);
@@ -17,15 +17,15 @@ function DisplayAutoSearchFirm({ autoSearch, input, handleClick }) {
             }
         }
 
-        getFirm();
+        getBranch();
     }, []);
 
     return (
         <>
             <ul className="autosearch" style={{visibility: autoSearch ? "visible" : "hidden"}}>
-                {firm.sort().filter((item) => item.toLowerCase().includes(input.loja.toLowerCase()))
+                {branch.sort().filter((item) => item.toLowerCase().includes(input.branch.toLowerCase()))
                 .map((item, index) => 
-                    <textarea onClick={handleClick} key={index} value={item} name="loja" readOnly>{item}</textarea>
+                    <textarea onClick={handleClick} key={index} value={item} name="branch" readOnly>{item}</textarea>
                 )
                 }
             </ul>  
@@ -33,4 +33,4 @@ function DisplayAutoSearchFirm({ autoSearch, input, handleClick }) {
     )
 }
 
-export default DisplayAutoSearchFirm;
+export default DisplayAutoSearchBranch;

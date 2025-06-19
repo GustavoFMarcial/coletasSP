@@ -1,6 +1,6 @@
 export const companiesArray = ["GMS", "RT Colors", "Potência", "Kaitos", "Papel Safra", "AL Industria", "C&A", "Glasspack", "UHP", "Trans. Floresta"];
 export const productsArray = ["Ferragem", "Alumínio", "Plástico Bolha", "Cantoneira", "Abrasivo", "Puxador", "Kit box", "Separador"];
-export const firmArray = ["Gênesis", "Luz"];
+export const branchArray = ["Gênesis", "Luz"];
 
 function logTime(label) {
     console.time(label);
@@ -49,10 +49,10 @@ async function companiesAndProducts(app, _) {
         }
     })
 
-    app.get("/api/firm", getOptions, (req, res) => {
-        const end = logTime("GET /products");
+    app.get("/api/branch", getOptions, (req, res) => {
+        const end = logTime("GET /branch");
         try {
-            res.status(200).send(firmArray);
+            res.status(200).send(branchArray);
         }
         catch (err) {
             console.error(err);
