@@ -34,13 +34,15 @@ async function login(app, _) {
     })
 
     app.post("/api/login", async (req, res) => {
+        const login = req.body.login;
+        const password = req.body.password;
         try {
-            if (req.body.login.length === 0) return res.status(401).send("Credenciais incorretas");
-            const result = await db.query("SELECT * FROM contas WHERE login = ($1)", [req.body.login]);
+            if (login.length === 0) return res.status(401).send("Credenciais incorretas");
+            const result = await db.query("SELECT * FROM contas WHERE login = ($1)", [login]);
             const hash = result.rows[0].password;
-            const compare = await bcrypt.compare(req.body.password, hash);
+            const compare = await bcrypt.compare(password, hash);
             if (compare) {
-                const accessToken = jwt.sign({ user: req.body.login }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "1h"});
+                const accessToken = jwt.sign({ user: login }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "1h"});
                 res
                 .header("authorization", accessToken)
                 .header("name", result.rows[0].name)
@@ -59,17 +61,20 @@ async function login(app, _) {
     })
 
     app.post("/api/password", { preHandler: verifyToken}, async (req, res) => {
+        const userNewPassword = req.body.input;
+        const name = req.body.name;
+        const role = req.body.role;
         try {
-            if (!req.body.input || req.body.input == "") {
+            if (!userNewPassword || userNewPassword == "") {
                 throw new Error("A senha não pode ser em branco");
             }
-            if (req.body.input.length <= 5) {
+            if (userNewPassword.length <= 5) {
                 throw new Error("A senha deve ter mais de 5 caracteres");
             }
             const saltRounds = 12;
-            const plainPassword = req.body.input;
+            const plainPassword = userNewPassword;
             const hash = await bcrypt.hash(plainPassword, saltRounds);
-            await db.query("UPDATE contas SET password = ($1) WHERE name = ($2) AND role = ($3)", [hash, req.body.name, req.body.role]);
+            await db.query("UPDATE contas SET password = ($1) WHERE name = ($2) AND role = ($3)", [hash, name, role]);
         }
         catch (err) {
             console.error(err);

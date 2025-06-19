@@ -60,13 +60,11 @@ async function collects(app, _) {
         const end = logTime("GET /");
         const filterArray = ["coletas", "coletasfeitas", "coletasdeletadas", "coletasaprovar"];
         const filter = req.query.filter;
-        // const page = parseInt(req.query.page) || 1;
-        // const offset = (page - 1) * 10;
-        const offset = req.query.page == 1 ? 0 : (req.query.page * 10) - 10;
+        const page = parseInt(req.query.page) || 1;
+        const offset = (page - 1) * 10;
         try {
-            if (filterArray.includes(req.query.filter)) {
+            if (filterArray.includes(filter)) {
                 const countQuery = `SELECT COUNT(*) FROM coletas WHERE status = $1`;
-                // const dataQuery = `SELECT * FROM ${req.query.filter} ORDER BY id ASC LIMIT 10 OFFSET ${req.query.page == 1 ? 0 : (req.query.page * 10) - 10}`;
                 const dataQuery = 'SELECT * FROM "coletas" WHERE status = $1 ORDER BY id ASC LIMIT 10 OFFSET $2';
                 const values = [filter, offset];
                 const result = await db.query(dataQuery, values);
@@ -151,14 +149,10 @@ async function collects(app, _) {
         try {
             if (filter == "coletas") {
                 await db.query("UPDATE coletas SET status = ($1) WHERE id = ($2)", ["coletasfeitas", collectId]);
-                // const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
-                // await db.query(`INSERT INTO coletasfeitas (company, date, product, username, volume, weight, order_number, branch) VALUES($1, $2, $3, $4, $5, $6, $7, $8)`, [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username, result.rows[0].volume, result.rows[0].weight, result.rows[0].order_number, result.rows[0].branch]);
                 res.status(200).send("ok");
             }
             if (filter == "coletasaprovar") {
                 await db.query("UPDATE coletas SET status = ($1) WHERE id = ($2)", ["coletas", collectId]);
-                // const result = await db.query("DELETE FROM coletasaprovar WHERE id = ($1) RETURNING *", [req.body.itemId]);
-                // await db.query(`INSERT INTO coletas (company, date, product, username, volume, weight, order_number, branch) VALUES($1, $2, $3, $4, $5, $6, $7, $8)`, [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username, result.rows[0].volume, result.rows[0].weight, result.rows[0].order_number, result.rows[0].branch]);
                 res.status(200).send("ok");
             }
         }
@@ -176,16 +170,6 @@ async function collects(app, _) {
         // const filter = req.body.filter;
         const collectId = req.body.itemId;
         try {
-            // if (filter == "coletas") {
-            //     const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
-            //     await db.query(`INSERT INTO coletasdeletadas (company, date, product, username, volume, weight, order_number, branch) VALUES($1, $2, $3, $4, $5, $6, $7, $8)`, [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username, result.rows[0].volume, result.rows[0].weight, result.rows[0].order_number, result.rows[0].branch]);
-            //     res.status(200).send("ok");
-            // }
-            // if (filter == "coletasaprovar") {
-            //     const result = await db.query("DELETE FROM coletasaprovar WHERE id = ($1) RETURNING *", [req.body.itemId]);
-            //     await db.query(`INSERT INTO coletasdeletadas (company, date, product, username, volume, weight, order_number, branch) VALUES($1, $2, $3, $4, $5, $6, $7, $8)`, [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username, result.rows[0].volume, result.rows[0].weight, result.rows[0].order_number, result.rows[0].branch]);
-            //     res.status(200).send("ok");
-            // }
             await db.query("UPDATE coletas SET status = ($1) WHERE id = ($2)", ["coletasdeletadas", collectId]);
             res.status(200).send("ok");
         }
@@ -223,18 +207,6 @@ async function collects(app, _) {
                                     if (branchArray.includes(branch)) {
                                         await db.query(`UPDATE coletas SET company = $1, date = $2, product = $3, username = $4, volume = $5, weight = $6, order_number = $7, branch = $8, status = $9 WHERE id = $10`, [company, date, product, collaborator, volume, weight, order_number, branch, "coletasaprovar", collectId]);
                                         res.status(201).send("ok");
-                                        // if (req.body.filter == "coletas") {
-                                        //     await db.query(`UPDATE coletas SET company = $1, date = $2, product = $3, username = $4, volume = $5, weight = $6, order_number = $7, branch = $8, status = $9 WHERE id = $10`, [req.body.input.company, req.body.input.date, req.body.input.product, req.body.collaborator.name, req.body.input.volume, req.body.input.weight, req.body.input.order_number, req.body.input.branch, "coletasaprovar", req.body.input.id]);
-                                        //     await db.query(`UPDATE coletas SET company = $1, date = $2, product = $3, username = $4, volume = $5, weight = $6, order_number = $7, branch = $8 WHERE id = $9`, [req.body.input.company, req.body.input.date, req.body.input.product, req.body.collaborator.name, req.body.input.volume, req.body.input.weight, req.body.input.order_number, req.body.input.branch, req.body.input.id]);
-                                        //     const result = await db.query("DELETE FROM coletas WHERE id = ($1) RETURNING *", [req.body.itemId]);
-                                        //     await db.query(`INSERT INTO coletasaprovar (company, date, product, username, volume, weight, order_number, branch) VALUES($1, $2, $3, $4, $5, $6, $7, $8)`, [result.rows[0].company, result.rows[0].date, result.rows[0].product, result.rows[0].username, result.rows[0].volume, result.rows[0].weight, result.rows[0].order_number, result.rows[0].branch]);
-                                        //     res.status(200).send("ok");
-                                        // }
-                                        // if (req.body.filter == "coletasaprovar") {
-                                        //     // await db.query(`UPDATE coletasaprovar SET company = $1, date = $2, product = $3, username = $4, volume = $5, weight = $6, order_number = $7, branch = $8 WHERE id = $9`, [req.body.input.company, req.body.input.date, req.body.input.product, req.body.collaborator.name, req.body.input.volume, req.body.input.weight, req.body.input.order_number, req.body.input.branch, req.body.input.id]);
-                                        //     await db.query(`UPDATE coletas SET company = $1, date = $2, product = $3, username = $4, volume = $5, weight = $6, order_number = $7, branch = $8, status = $9 WHERE id = $10`, [req.body.input.company, req.body.input.date, req.body.input.product, req.body.collaborator.name, req.body.input.volume, req.body.input.weight, req.body.input.order_number, req.body.input.branch, "coletasaprovar", req.body.input.id]);
-                                        //     res.status(201).send("ok");
-                                        // }
                                     }
                                     if (!branchArray.includes(branch)) {
                                         res.status(404).send("Coloque um nome de loja válido");
