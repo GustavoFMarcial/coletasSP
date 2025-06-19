@@ -8,11 +8,13 @@ bun install
 in one terminal:
 ```bash
 cd frontend
+bun install
 bun dev
 ```
 in another terminal:
 ```bash
 cd backend
+bun install
 bun dev
 ```
 
