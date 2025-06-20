@@ -221,7 +221,7 @@ function DisplayCollects({ token }) {
                 <Suspense fallback={<Loading />}>
                     <DisplayMap closeModalSignal={closeModalSignal} collaborator={collaborator} data={data} readOnly={readOnly} doneCollect={doneCollect} editCollect={editCollect} deleteCollect={deleteCollect}/>
                 </Suspense>
-                {input ? <DisplayInput resetInput={resetInput} addCollect={addCollect}/> : "" }
+                {input ? <DisplayInput collaborator={collaborator} resetInput={resetInput} addCollect={addCollect}/> : "" }
             </table>
             <Pagination tableRows={tableRows} handlePagination={handlePagination}/>
         </>
