@@ -1,7 +1,7 @@
 import EditModal from "./DisplayEditModal.jsx";
 
 function DisplayMap({ collaborator, data, doneCollect, editCollect, deleteCollect, readOnly, closeModalSignal }) {
-    const date = new Date(data[0]?.created_at);
+    const date = new Date(data?.[0]?.created_at);
     const created_at = date.toLocaleDateString("pt-BR");
 
     return(
@@ -42,8 +42,8 @@ function DisplayMap({ collaborator, data, doneCollect, editCollect, deleteCollec
                                     </>
                                     :
                                     <>
-                                        <td className={index % 2 == 0 ? "border-gray-400 bg-gray-100 text-gray-600 pl-1 border-b-1" : "border-gray-400 text-gray-600 pl-1 border-b-1"}></td>
-                                        <td className={index % 2 == 0 ? "border-r-1 border-gray-400 bg-gray-100 text-gray-600 pl-1 border-b-1" : "border-r-1 border-gray-400 text-gray-600 pl-1 border-b-1"}></td>
+                                        <td className={index % 2 == 0 ? "border-gray-400 bg-gray-100 text-gray-600 pl-1" : "border-gray-400 text-gray-600 pl-1"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}></td>
+                                        <td className={index % 2 == 0 ? "border-r-1 border-gray-400 bg-gray-100 text-gray-600 pl-1" : "border-r-1 border-gray-400 text-gray-600 pl-1"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}></td>
                                     </>
                                 }
                                 
