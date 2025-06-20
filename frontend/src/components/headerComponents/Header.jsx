@@ -13,8 +13,15 @@ function Header({ collaborator, token }) {
                     <p>{collaborator.name}</p>
                     <p>{collaborator.role}</p>
                     <div className="flex gap-2">
-                        <ChangePasswordModal collaborator={collaborator} token={token} />
-                        <Logout />  
+                        {collaborator.role == "Motorista" ?
+                             <Logout />
+                            :
+                            <>
+                                <ChangePasswordModal collaborator={collaborator} token={token} />
+                                <Logout /> 
+                            </>
+                        }
+                         
                     </div>
                 </div>
             </div>
