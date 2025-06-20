@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function DisplayFilter({ filter, toCollectFilter, collectedFilter, approveFilter, deletedCollectsFilter }) {
+function DisplayFilter({ filter, toCollectFilter, collectedFilter, approveFilter, deletedCollectsFilter, collaborator }) {
     const buttonsName = ["coletas", "coletasfeitas", "coletasaprovar", "coletasdeletadas"];
     const pattern = {};
     const [buttonColor, setButtonColor] = useState(pattern);
@@ -21,12 +21,21 @@ function DisplayFilter({ filter, toCollectFilter, collectedFilter, approveFilter
     }
 
     return (
-        <div className="filter-container">
-            <button style={{backgroundColor: buttonColor.coletas}} onMouseDown={handleClick} onClick={toCollectFilter} name="coletas">A coletar</button>
-            <button style={{backgroundColor: buttonColor.coletasfeitas}} onMouseDown={handleClick} onClick={collectedFilter} name="coletasfeitas">Coletas feitas</button>
-            <button style={{backgroundColor: buttonColor.coletasaprovar}} onMouseDown={handleClick} onClick={approveFilter} name="coletasaprovar">Coletas a aprovar</button>
-            <button style={{backgroundColor: buttonColor.coletasdeletadas}} onMouseDown={handleClick} onClick={deletedCollectsFilter} name="coletasdeletadas">Coletas deletadas</button>
-        </div>
+        <>
+            {collaborator.role == "Motorista" ? 
+                <div className="filter-container">
+                    <button style={{backgroundColor: buttonColor.coletas}} onClick={toCollectFilter} name="coletas">A coletar</button>
+                </div>
+                :
+                <div className="filter-container">
+                    <button style={{backgroundColor: buttonColor.coletas}} onMouseDown={handleClick} onClick={toCollectFilter} name="coletas">A coletar</button>
+                    <button style={{backgroundColor: buttonColor.coletasfeitas}} onMouseDown={handleClick} onClick={collectedFilter} name="coletasfeitas">Coletas feitas</button>
+                    <button style={{backgroundColor: buttonColor.coletasaprovar}} onMouseDown={handleClick} onClick={approveFilter} name="coletasaprovar">Coletas a aprovar</button>
+                    <button style={{backgroundColor: buttonColor.coletasdeletadas}} onMouseDown={handleClick} onClick={deletedCollectsFilter} name="coletasdeletadas">Coletas deletadas</button>
+                </div>
+            }
+            
+        </>
     )
 }
 

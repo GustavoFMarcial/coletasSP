@@ -215,7 +215,7 @@ function DisplayCollects({ token }) {
     return (
         <>
             <Header collaborator={collaborator} token={token}/>
-            <DisplayFilter filter={filter} approveFilter={approveFilter} toCollectFilter={toCollectFilter} collectedFilter={collectedFilter} deletedCollectsFilter={deletedCollectsFilter}/>
+            <DisplayFilter collaborator={collaborator} filter={filter} approveFilter={approveFilter} toCollectFilter={toCollectFilter} collectedFilter={collectedFilter} deletedCollectsFilter={deletedCollectsFilter}/>
             <table>
                 <DisplayHeader readOnly={readOnly} data={data}/>
                 <Suspense fallback={<Loading />}>

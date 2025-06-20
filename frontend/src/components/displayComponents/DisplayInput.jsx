@@ -98,6 +98,7 @@ function DisplayInput({ addCollect, resetInput }) {
         <tbody>
             <tr className="tr-input">
                 <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"></td>
+                <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"></td>
                 <td className="border-gray-400 bg-gray-100 border-b-1 border-t-1 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
                 <td className="border-l-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
                 <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
@@ -110,6 +111,7 @@ function DisplayInput({ addCollect, resetInput }) {
                 <td className="border-r-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"></td>
             </tr>
             <tr>
+                <td></td>
                 <td></td>
                 <td><DisplayAutoSearchCompany autoSearch={autoSearchCompany} input={input} handleClick={handleClick}/></td>
                 <td></td>

@@ -4,7 +4,7 @@ import DisplayAutoSearchCompany from "./DisplayAutoSearchCompany.jsx";
 import DisplayAutoSearchProduct from "./DisplayAutoSearchProduct.jsx";
 import DisplayAutoSearchBranch from "./DisplayAutoSearchBranch.jsx";
 
-function EditModal({ editCollect, item, closeModalSignal }) {
+function EditModal({ editCollect, item, closeModalSignal, created_at }) {
     const dialogRef = useRef(null);
     const [autoSearchCompany, setAutoSearchCompany] = useState(false);
     const [autoSearchProduct, setAutoSearchProduct] = useState(false);
@@ -114,7 +114,8 @@ function EditModal({ editCollect, item, closeModalSignal }) {
                         <DisplayHeader />
                         <tbody>
                             <tr>
-                                <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"></td>
+                                <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1">{item.username}</td>
+                                <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1">{created_at}</td>
                                 <td className="border-gray-400 bg-gray-100 border-b-1 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
                                 <td className="border-l-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
                                 <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
@@ -127,6 +128,7 @@ function EditModal({ editCollect, item, closeModalSignal }) {
                                 <td className="border-r-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"></td>
                             </tr>
                             <tr>
+                                <td></td>
                                 <td></td>
                                 <td><DisplayAutoSearchCompany autoSearch={autoSearchCompany} input={input} handleClick={handleClick}/></td>
                                 <td></td>

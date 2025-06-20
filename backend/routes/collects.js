@@ -30,6 +30,7 @@ const getOptions = {
                 weight: { type: "integer" },
                 order_number: { type: "integer" },
                 branch: { type: "string"},
+                created_at: { type: "string" },
               },
               required: ["id", "company", "date", "product", "username", "volume", "weight", "order_number", "branch"],
             }
