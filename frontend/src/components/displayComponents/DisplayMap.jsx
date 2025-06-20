@@ -35,8 +35,18 @@ function DisplayMap({ collaborator, data, doneCollect, editCollect, deleteCollec
                         {collaborator.role == "Administrador" || collaborator.role == "Gestor" ?
                             <>
                                 <td className={index % 2 == 0 ? "border-gray-400 bg-gray-100 text-gray-600 pl-1" : "border-gray-400 text-gray-600 pl-1"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}><img className="min-w-[25px] min-h-[25px]" onClick={() => doneCollect(item.id)} src="/assets/images/done.png" alt="done button"/></td>
-                                <td className={index % 2 == 0 ? "border-gray-400 bg-gray-100 text-gray-600 pl-1" : "border-gray-400 text-gray-600 pl-1"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}><EditModal created_at={created_at} closeModalSignal={closeModalSignal} editCollect={editCollect} item={item}/></td>
-                                <td className={index % 2 == 0 ? "border-r-1 border-gray-400 bg-gray-100 text-gray-600 pl-1" : "border-r-1 border-gray-400 text-gray-600 pl-1"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}><img className="min-w-[25px] min-h-[25px]" onClick={() => deleteCollect(item.id)} src="/assets/images/delete.png" alt="delete button"/></td>
+                                {collaborator.role == "Administrador" ? 
+                                    <>
+                                        <td className={index % 2 == 0 ? "border-gray-400 bg-gray-100 text-gray-600 pl-1" : "border-gray-400 text-gray-600 pl-1"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}><EditModal created_at={created_at} closeModalSignal={closeModalSignal} editCollect={editCollect} item={item}/></td>
+                                        <td className={index % 2 == 0 ? "border-r-1 border-gray-400 bg-gray-100 text-gray-600 pl-1" : "border-r-1 border-gray-400 text-gray-600 pl-1"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}><img className="min-w-[25px] min-h-[25px]" onClick={() => deleteCollect(item.id)} src="/assets/images/delete.png" alt="delete button"/></td>
+                                    </>
+                                    :
+                                    <>
+                                        <td className={index % 2 == 0 ? "border-gray-400 bg-gray-100 text-gray-600 pl-1 border-b-1" : "border-gray-400 text-gray-600 pl-1 border-b-1"}></td>
+                                        <td className={index % 2 == 0 ? "border-r-1 border-gray-400 bg-gray-100 text-gray-600 pl-1 border-b-1" : "border-r-1 border-gray-400 text-gray-600 pl-1 border-b-1"}></td>
+                                    </>
+                                }
+                                
                             </>
                             :
                             <>
