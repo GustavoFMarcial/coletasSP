@@ -24,11 +24,11 @@ async function companiesAndProducts(app, _) {
     app.get("/api/companies", getOptions, (req, res) => {
         const end = logTime("GET /companies");
         try {
-            res.status(200).send(companiesArray);
+            return res.status(200).send(companiesArray);
         }
         catch (err) {
             console.error(err);
-            res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor");
         }
         finally {
             end();
@@ -38,11 +38,11 @@ async function companiesAndProducts(app, _) {
     app.get("/api/products", getOptions, (req, res) => {
         const end = logTime("GET /products");
         try {
-            res.status(200).send(productsArray);
+            return res.status(200).send(productsArray);
         }
         catch (err) {
             console.error(err);
-            res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor");
         }
         finally {
             end();
@@ -52,11 +52,11 @@ async function companiesAndProducts(app, _) {
     app.get("/api/branch", getOptions, (req, res) => {
         const end = logTime("GET /branch");
         try {
-            res.status(200).send(branchArray);
+            return res.status(200).send(branchArray);
         }
         catch (err) {
             console.error(err);
-            res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor");
         }
         finally {
             end();

@@ -29,13 +29,12 @@ async function login(app, _) {
         }
         catch (err) {
             console.error(err);
-            res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor");
         }
     })
 
     app.post("/api/login", async (req, res) => {
-        const login = req.body.login;
-        const password = req.body.password;
+        const { login, password, } = req.body; 
         try {
             if (login.length === 0) return res.status(401).send("Credenciais incorretas");
             const result = await db.query("SELECT * FROM contas WHERE login = ($1)", [login]);
@@ -43,7 +42,7 @@ async function login(app, _) {
             const compare = await bcrypt.compare(password, hash);
             if (compare) {
                 const accessToken = jwt.sign({ user: login }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "1h"});
-                res
+                return res
                 .header("authorization", accessToken)
                 .header("name", result.rows[0].name)
                 .header("role", result.rows[0].role)
@@ -51,19 +50,17 @@ async function login(app, _) {
                 .status(200);
             }
             if (!compare) {
-                res.status(401).send("Credenciais incorretas");
+                return res.status(401).send("Credenciais incorretas");
             }
         }
         catch (err) {
             console.error(err);
-            res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor");
         }
     })
 
     app.post("/api/password", { preHandler: verifyToken}, async (req, res) => {
-        const userNewPassword = req.body.input;
-        const name = req.body.name;
-        const role = req.body.role;
+        const { userNewPassword, name, role, } = req.body;
         try {
             if (!userNewPassword || userNewPassword == "") {
                 throw new Error("A senha não pode ser em branco");
@@ -78,7 +75,7 @@ async function login(app, _) {
         }
         catch (err) {
             console.error(err);
-            res.status(500).send(err.message);
+            return res.status(500).send(err.message);
         }
     })
 }
