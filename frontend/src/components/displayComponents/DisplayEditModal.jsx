@@ -113,19 +113,19 @@ function EditModal({ editCollect, item, closeModalSignal, created_at }) {
                     <table>
                         <DisplayHeader />
                         <tbody>
-                            <tr>
-                                <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1">{item.username}</td>
-                                <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1">{created_at}</td>
-                                <td className="border-gray-400 bg-gray-100 border-b-1 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
-                                <td className="border-l-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
-                                <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
-                                <td className="border-gray-400 bg-gray-100 border-b-1 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.volume} type="text" name="volume" placeholder="Volume" required autoComplete="off"/></td>
-                                <td className="border-x-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.weight} type="text" name="weight" placeholder="Peso" required autoComplete="off"/></td>
-                                <td className="border-r-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.order_number} type="text" name="order_number" placeholder="Pedido" required autoComplete="off"/></td>
-                                <td className="border-r-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.branch} type="text" name="branch" placeholder="Loja" required autoComplete="off"/></td>
-                                <td className="border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"></td>
-                                <td className="border-gray-400 bg-gray-100 border-b-1 text-gray-600 pl-1"><img className="min-w-[25px] min-h-[25px]" onClick={() => editCollect(input, item.id)} src="/assets/images/done.png" alt="done button"/></td>
-                                <td className="border-r-1 border-gray-400 border-b-1 bg-gray-100 text-gray-600 pl-1"></td>
+                            <tr className="border text-gray-600 bg-gray-100">
+                                <td className="border-x-1 border-gray-400 border-b-1">{item.username}</td>
+                                <td className="border-x-1 border-gray-400 border-b-1">{created_at}</td>
+                                <td className="border-gray-400 border-b-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
+                                <td className="border-l-1 border-gray-400 border-b-1"><input className="bg-white max-w-[150px]" onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
+                                <td className="border-x-1 border-gray-400 border-b-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
+                                <td className="border-gray-400 border-b-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.volume} type="text" name="volume" placeholder="Volume" required autoComplete="off"/></td>
+                                <td className="border-x-1 border-gray-400 border-b-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.weight} type="text" name="weight" placeholder="Peso" required autoComplete="off"/></td>
+                                <td className="border-r-1 border-gray-400 border-b-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.order_number} type="text" name="order_number" placeholder="Pedido" required autoComplete="off"/></td>
+                                <td className="border-r-1 border-gray-400 border-b-1"><input className="bg-white max-w-[150px]" onChange={handleInput} onMouseDown={handleMouseDown} value={input.branch} type="text" name="branch" placeholder="Loja" required autoComplete="off"/></td>
+                                <td className="border-gray-400 border-b-1"></td>
+                                <td className="border-gray-400 border-b-1"><img className="min-w-[25px] min-h-[25px]" onClick={() => editCollect(input, item.id)} src="/assets/images/done.png" alt="done button"/></td>
+                                <td className="border-r-1 border-gray-400 border-b-1"></td>
                             </tr>
                             <tr>
                                 <td></td>
