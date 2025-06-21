@@ -29,9 +29,9 @@ function DisplayHeader({ readOnly }) {
                     <th className={style}>Peso (kg)</th>
                     <th className={style}>Pedido</th>
                     <th className={style}>Loja</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th className="border-y-1 border-gray-400"></th>
+                    <th className="border-y-1 border-gray-400"></th>
+                    <th className="border-y-1 border-gray-400 border-r-1"></th>
                 </tr>
             </thead>
         }
