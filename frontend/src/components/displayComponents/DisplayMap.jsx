@@ -7,7 +7,7 @@ function DisplayMap({ collaborator, data, doneCollect, editCollect, deleteCollec
     return(
         <tbody>
             {readOnly ? 
-                data.map((item, index, array) =>
+                data.map((item, index) =>
                     <tr key={index} className="mainRow border border-x-1 border-y-1 border-gray-400 text-gray-600">
                         <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400 border-r-1 pl-1" : "border-r-1 border-gray-400 pl-1"}>{item.username}</td>
                         <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400 border-r-1 pl-1" : "border-r-1 border-gray-400 pl-1"} >{created_at}</td>
@@ -21,7 +21,7 @@ function DisplayMap({ collaborator, data, doneCollect, editCollect, deleteCollec
                     </tr>
                 )
                 :
-                data.map((item, index, array) =>
+                data.map((item, index) =>
                     <tr key={index} className="mainRow border border-x-1 border-y-1 border-gray-400 text-gray-600">
                         <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400 border-r-1 pl-1" : "border-r-1 border-gray-400 pl-1"}>{item.username}</td>
                         <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400 border-r-1 pl-1" : "border-r-1 border-gray-400 pl-1"}>{created_at}</td>

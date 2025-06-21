@@ -1,36 +1,37 @@
 function DisplayHeader({ readOnly }) {
+    const style = "border border-gray-400 text-black pl-1 min-w-[150px]";
 
     return (
         <>
         {readOnly ?
             <thead>
                 <tr>
-                    <th className="border-x-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Usuário</th>
-                    <th className="border-t-1 border-r-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Cadastro</th>
-                    <th className="border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Fornecedor</th>
-                    <th className="border-l-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Data</th>
-                    <th className="border-x-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Material</th>
-                    <th className="border-x-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Volume</th>
-                    <th className="border-x-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Peso (kg)</th>
-                    <th className="border-x-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Pedido</th>
-                    <th className="border-x-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Loja</th>
+                    <th className={style}>Usuário</th>
+                    <th className={style}>Cadastro</th>
+                    <th className={style}>Fornecedor</th>
+                    <th className={style}>Data</th>
+                    <th className={style}>Material</th>
+                    <th className={style}>Volume</th>
+                    <th className={style}>Peso (kg)</th>
+                    <th className={style}>Pedido</th>
+                    <th className={style}>Loja</th>
                 </tr>
             </thead>
         :
             <thead>
                 <tr>
-                    <th className="border-x-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Usuário</th>
-                    <th className="border-t-1 border-r-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Cadastro</th>
-                    <th className="border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Fornecedor</th>
-                    <th className="border-l-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Data</th>
-                    <th className="border-x-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Material</th>
-                    <th className="border-x-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Volume</th>
-                    <th className="border-x-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Peso (kg)</th>
-                    <th className="border-x-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Pedido</th>
-                    <th className="border-x-1 border-t-1 border-b-1 border-gray-400 text-black pl-1 min-w-[150px]">Loja</th>
-                    <th className="border-t-1 border-b-1 border-gray-400 text-black pl-1"></th>
-                    <th className="border-t-1 border-b-1 border-gray-400 text-black pl-1"></th>
-                    <th className="border-r-1 border-t-1 border-b-1 border-gray-400 text-black pl-1"></th>
+                    <th className={style}>Usuário</th>
+                    <th className={style}>Cadastro</th>
+                    <th className={style}>Fornecedor</th>
+                    <th className={style}>Data</th>
+                    <th className={style}>Material</th>
+                    <th className={style}>Volume</th>
+                    <th className={style}>Peso (kg)</th>
+                    <th className={style}>Pedido</th>
+                    <th className={style}>Loja</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
         }
