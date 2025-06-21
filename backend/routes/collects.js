@@ -60,7 +60,7 @@ async function collects(app, _) {
     app.get("/api/:filter", { preHandler: verifyToken, schema: getOptions.schema }, async (req, res) => {
         const end = logTime("GET /");
         const filterArray = ["coletas", "coletasfeitas", "coletasdeletadas", "coletasaprovar"];
-        const filter = req.query.filter;
+        const { filter } = req.query;
         const page = parseInt(req.query.page) || 1;
         const offset = (page - 1) * 10;
         try {
@@ -70,12 +70,12 @@ async function collects(app, _) {
                 const values = [filter, offset];
                 const result = await db.query(dataQuery, values);
                 const resultCount = await db.query(countQuery, [values[0]]);
-                res.status(200).send({data: result.rows, count: Number(resultCount.rows[0].count) == 0 ? 1 : Number(resultCount.rows[0].count)});
+                return res.status(200).send({data: result.rows, count: Number(resultCount.rows[0].count) == 0 ? 1 : Number(resultCount.rows[0].count)});
             }   
         }
         catch (err) {
             console.error(err);
-            res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor");
         }
         finally {
             end();
@@ -87,52 +87,41 @@ async function collects(app, _) {
         const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
         const volumeAndWeightRegex = /^(0|[1-9][0-9]{0,11})$/;
         const orderRegex = /^(0|[1-9][0-9]{0,11})$/;
-        const company = req.body.data.company;
-        const date = req.body.data.date;
-        const product = req.body.data.product;
-        const collaborator = req.body.collaborator.name;
-        const volume = req.body.data.volume;
-        const weight = req.body.data.weight;
-        const order_number = req.body.data.order_number;
-        const branch = req.body.data.branch;
+        const {
+            company,
+            date,
+            product,
+            volume,
+            weight,
+            order_number,
+            branch,
+        } = req.body.data;
+        const { name } = req.body.collaborator;
+
         try {
-            if (companiesArray.includes(company)) {
-                if (dateRegex.test(date)) {
-                    if (productsArray.includes(product)) {
-                        if (volumeAndWeightRegex.test(volume)) {
-                            if (volumeAndWeightRegex.test(weight)) {
-                                if (orderRegex.test(order_number)) {
-                                    if (branchArray.includes(branch)) {
-                                        await db.query(`INSERT INTO coletas (company, date, product, username, volume, weight, order_number, branch, status) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)`, [company, date, product, collaborator, volume, weight, order_number, branch, "coletasaprovar"]);
-                                        res.status(201).send("ok");
-                                    }
-                                    if (!branchArray.includes(branch)) {
-                                        res.status(404).send("Coloque um nome de loja válido");
-                                    }
-                                }
-                                if (!orderRegex.test(order_number)) {
-                                    res.status(404).send("Pedido deve ser positivo, inteiro e no máximo 12 dígitos");
-                                } 
-                            }
-                            if (!volumeAndWeightRegex.test(weight)) {
-                            res.status(404).send("Peso deve ser positivo, inteiro e no máximo 12 dígitos");
-                            }
-                        }
-                        if (!volumeAndWeightRegex.test(volume)) {
-                            res.status(404).send("Volume deve ser positivo, inteiro e no máximo 12 dígitos");
-                        }
-                    }
-                    if (!productsArray.includes(product)) {
-                        res.status(404).send("Coloque um nome de produto válido");
-                    }
-                }
-                if (!dateRegex.test(date)) {
-                    res.status(404).send("Coloque uma data válida, por exemplo: DD/MM/AAAA");
-                }
-            }
             if (!companiesArray.includes(company)) {
-                res.status(404).send("Coloque um nome de empresa válido");
+                return res.status(404).send("Coloque um nome de empresa válido");
             }
+            if (!dateRegex.test(date)) {
+                return res.status(404).send("Coloque uma data válida, por exemplo: DD/MM/AAAA");
+            }
+            if (!productsArray.includes(product)) {
+                return res.status(404).send("Coloque um nome de material válido");
+            }
+            if (!volumeAndWeightRegex.test(volume)) {
+                return res.status(404).send("Volume deve ser positivo, inteiro e no máximo 12 dígitos");
+            }
+            if (!volumeAndWeightRegex.test(weight)) {
+                return res.status(404).send("Peso deve ser positivo, inteiro e no máximo 12 dígitos");
+            }
+            if (!orderRegex.test(order_number)) {
+                return res.status(404).send("Pedido deve ser positivo, inteiro e no máximo 12 dígitos");
+            }
+            if (!branchArray.includes(branch)) {
+                return res.status(404).send("Coloque um nome de loja válido");
+            }
+            await db.query(`INSERT INTO coletas (company, date, product, username, volume, weight, order_number, branch, status) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)`, [company, date, product, name, volume, weight, order_number, branch, "coletasaprovar"]);
+            return res.status(201).send("ok");
         }
         catch (err) {
             console.error(err);
@@ -145,21 +134,23 @@ async function collects(app, _) {
     
     app.post("/api/done", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /done");
-        const filter = req.body.filter;
-        const collectId = req.body.itemId;
+        const {
+            filter,
+            itemId,
+        } = req.body;
         try {
             if (filter == "coletas") {
-                await db.query("UPDATE coletas SET status = ($1) WHERE id = ($2)", ["coletasfeitas", collectId]);
-                res.status(200).send("ok");
+                await db.query("UPDATE coletas SET status = ($1) WHERE id = ($2)", ["coletasfeitas", itemId]);
+                return res.status(200).send("ok");
             }
             if (filter == "coletasaprovar") {
-                await db.query("UPDATE coletas SET status = ($1) WHERE id = ($2)", ["coletas", collectId]);
-                res.status(200).send("ok");
+                await db.query("UPDATE coletas SET status = ($1) WHERE id = ($2)", ["coletas", itemId]);
+                return res.status(200).send("ok");
             }
         }
         catch (err) {
             console.error(err);
-            res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor");
         }
         finally {
             end();
@@ -168,15 +159,14 @@ async function collects(app, _) {
     
     app.post("/api/delete", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /delete");
-        // const filter = req.body.filter;
-        const collectId = req.body.itemId;
+        const { itemId } = req.body;
         try {
-            await db.query("UPDATE coletas SET status = ($1) WHERE id = ($2)", ["coletasdeletadas", collectId]);
-            res.status(200).send("ok");
+            await db.query("UPDATE coletas SET status = ($1) WHERE id = ($2)", ["coletasdeletadas", itemId]);
+            return res.status(200).send("ok");
         }
         catch (err) {
             console.error(err);
-            res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor");
         }
         finally {
             end();
@@ -185,58 +175,46 @@ async function collects(app, _) {
     
     app.post("/api/edit", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /edit");
-        console.log(req.body);
         const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
         const volumeAndWeightRegex = /^(0|[1-9][0-9]{0,11})$/;
         const orderRegex = /^(0|[1-9][0-9]{0,11})$/;
-        const company = req.body.input.company;
-        const date = req.body.input.date;
-        const product = req.body.input.product;
-        const collaborator = req.body.collaborator.name;
-        const volume = req.body.input.volume;
-        const weight = req.body.input.weight;
-        const order_number = req.body.input.order_number;
-        const branch = req.body.input.branch;
-        const collectId = req.body.itemId;
+        const {
+            company,
+            date,
+            product,
+            volume,
+            weight,
+            branch,
+            order_number,
+            id,
+        } = req.body.input;
+        const { name } = req.body.collaborator;
+
         try {
-            if (companiesArray.includes(company)) {
-                if (dateRegex.test(date)) {
-                    if (productsArray.includes(product)) {
-                        if (volumeAndWeightRegex.test(volume)) {
-                            if (volumeAndWeightRegex.test(weight)) {
-                                if (orderRegex.test(order_number)) {
-                                    if (branchArray.includes(branch)) {
-                                        await db.query(`UPDATE coletas SET company = $1, date = $2, product = $3, username = $4, volume = $5, weight = $6, order_number = $7, branch = $8, status = $9 WHERE id = $10`, [company, date, product, collaborator, volume, weight, order_number, branch, "coletasaprovar", collectId]);
-                                        res.status(201).send("ok");
-                                    }
-                                    if (!branchArray.includes(branch)) {
-                                        res.status(404).send("Coloque um nome de loja válido");
-                                    }
-                                }
-                                if (!orderRegex.test(order_number)) {
-                                    res.status(404).send("Pedido deve ser positivo, inteiro e no máximo 12 dígitos");
-                                }
-                            }
-                            if (!volumeAndWeightRegex.test(weight)) {
-                                res.status(404).send("Peso deve ser positivo, inteiro e no máximo 12 dígitos");
-                            }
-                        }
-                        if (!volumeAndWeightRegex.test(volume)) {
-                            res.status(404).send("Volume deve ser positivo, inteiro e no máximo 12 dígitos");
-                        }
-                    }
-                    if (!productsArray.includes(product)) {
-                        res.status(404).send("Coloque um nome de produto válido");
-                    }
-                }
-                if (!dateRegex.test(date)) {
-                    res.status(404).send("Coloque uma data válida, por exemplo: DD/MM/AAAA")
-                }
-            }
             if (!companiesArray.includes(company)) {
-                res.status(404).send("Coloque um nome de empresa válido");
+                return res.status(404).send("Coloque um nome de empresa válido");
             }
-        }
+            if (!dateRegex.test(date)) {
+                return res.status(404).send("Coloque uma data válida, por exemplo: DD/MM/AAAA")
+            }
+            if (!productsArray.includes(product)) {
+                return res.status(404).send("Coloque um nome de material válido");
+            }
+            if (!volumeAndWeightRegex.test(volume)) {
+                return res.status(404).send("Volume deve ser positivo, inteiro e no máximo 12 dígitos");
+            }
+            if (!volumeAndWeightRegex.test(weight)) {
+                return res.status(404).send("Peso deve ser positivo, inteiro e no máximo 12 dígitos");
+            }
+            if (!orderRegex.test(order_number)) {
+                return res.status(404).send("Pedido deve ser positivo, inteiro e no máximo 12 dígitos");
+            }
+            if (!branchArray.includes(branch)) {
+                return res.status(404).send("Coloque um nome de loja válido");
+            }
+            await db.query(`UPDATE coletas SET company = $1, date = $2, product = $3, username = $4, volume = $5, weight = $6, order_number = $7, branch = $8, status = $9 WHERE id = $10`, [company, date, product, name, volume, weight, order_number, branch, "coletasaprovar", id]);
+            return res.status(201).send("ok");
+            }
         catch (err) {
             console.error(err);
             res.status(500).send("Erro no servidor");
