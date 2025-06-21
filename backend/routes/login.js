@@ -36,26 +36,27 @@ async function login(app, _) {
     app.post("/api/login", async (req, res) => {
         const { login, password, } = req.body; 
         try {
-            if (login.length === 0) return res.status(401).send("Credenciais incorretas");
+            if (login.length === 0) return res.status(401).send("Credenciais incorretas.");
             const result = await db.query("SELECT * FROM contas WHERE login = ($1)", [login]);
             const hash = result.rows[0].password;
             const compare = await bcrypt.compare(password, hash);
             if (compare) {
                 const accessToken = jwt.sign({ user: login }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "1h"});
-                return res
+                res
                 .header("authorization", accessToken)
                 .header("name", result.rows[0].name)
                 .header("role", result.rows[0].role)
                 .header("Access-Control-Expose-Headers", ["authorization", "name", "role"])
                 .status(200);
+                return;
             }
             if (!compare) {
-                return res.status(401).send("Credenciais incorretas");
+                return res.status(401).send("Credenciais incorretas.");
             }
         }
         catch (err) {
             console.error(err);
-            return res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor.");
         }
     })
 
