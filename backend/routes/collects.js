@@ -75,7 +75,7 @@ async function collects(app, _) {
         }
         catch (err) {
             console.error(err);
-            return res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor.");
         }
         finally {
             end();
@@ -85,43 +85,42 @@ async function collects(app, _) {
     app.post("/api/add", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /add");
         const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
-        const volumeAndWeightRegex = /^(0|[1-9][0-9]{0,11})$/;
-        const orderRegex = /^(0|[1-9][0-9]{0,11})$/;
+        const numberRegex = /^(0|[1-9][0-9]{0,11})$/;
         const { company, date, product, volume, weight, order_number, branch, } = req.body.data;
         const { name } = req.body.collaborator;
 
         try {
             if (!companiesArray.includes(company)) {
-                return res.status(400).send("Coloque um nome de empresa válido");
+                return res.status(400).send("Coloque um nome de empresa válido.");
             }
             if (!dateRegex.test(date)) {
-                return res.status(400).send("Coloque uma data válida, por exemplo: DD/MM/AAAA");
+                return res.status(400).send("Coloque uma data válida, por exemplo: DD/MM/AAAA.");
             }
             if (!productsArray.includes(product)) {
-                return res.status(400).send("Coloque um nome de material válido");
+                return res.status(400).send("Coloque um nome de material válido.");
             }
-            if (!volumeAndWeightRegex.test(volume)) {
-                return res.status(400).send("Volume deve ser positivo, inteiro e no máximo 12 dígitos");
+            if (!numberRegex.test(volume)) {
+                return res.status(400).send("Volume deve ser positivo, inteiro e no máximo 12 dígitos.");
             }
-            if (!volumeAndWeightRegex.test(weight)) {
-                return res.status(400).send("Peso deve ser positivo, inteiro e no máximo 12 dígitos");
+            if (!numberRegex.test(weight)) {
+                return res.status(400).send("Peso deve ser positivo, inteiro e no máximo 12 dígitos.");
             }
-            if (!orderRegex.test(order_number)) {
-                return res.status(400).send("Pedido deve ser positivo, inteiro e no máximo 12 dígitos");
+            if (!numberRegex.test(order_number)) {
+                return res.status(400).send("Pedido deve ser positivo, inteiro e no máximo 12 dígitos.");
             }
             if (!branchArray.includes(branch)) {
-                return res.status(400).send("Coloque um nome de loja válido");
+                return res.status(400).send("Coloque um nome de loja válido.");
             }
             await db.query(
                 `INSERT INTO coletas (company, date, product, username, volume, weight, order_number, branch, status) 
                 VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)`, 
                 [company, date, product, name, volume, weight, order_number, branch, "coletasaprovar"]
             );
-            return res.status(201).send("ok");
+            return res.status(201).send({ message: "Coleta adicionada com sucesso." });
         }
         catch (err) {
             console.error(err);
-            return res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor.");
         }
         finally {
             end();
@@ -134,16 +133,16 @@ async function collects(app, _) {
         try {
             if (filter == "coletas") {
                 await db.query("UPDATE coletas SET status = ($1) WHERE id = ($2)", ["coletasfeitas", itemId]);
-                return res.status(200).send("ok");
+                return res.status(200).send({ message: "Coleta concluída com sucesso." });
             }
             if (filter == "coletasaprovar") {
                 await db.query("UPDATE coletas SET status = ($1) WHERE id = ($2)", ["coletas", itemId]);
-                return res.status(200).send("ok");
+                return res.status(200).send({ message: "Coleta aprovada com sucesso." });
             }
         }
         catch (err) {
             console.error(err);
-            return res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor.");
         }
         finally {
             end();
@@ -155,11 +154,11 @@ async function collects(app, _) {
         const { itemId } = req.body;
         try {
             await db.query("UPDATE coletas SET status = ($1) WHERE id = ($2)", ["coletasdeletadas", itemId]);
-            return res.status(200).send("ok");
+            return res.status(200).send({ message: "Coleta deletada com sucesso." });
         }
         catch (err) {
             console.error(err);
-            return res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor.");
         }
         finally {
             end();
@@ -169,42 +168,41 @@ async function collects(app, _) {
     app.post("/api/edit", { preHandler: verifyToken }, async (req, res) => {
         const end = logTime("POST /edit");
         const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
-        const volumeAndWeightRegex = /^(0|[1-9][0-9]{0,11})$/;
-        const orderRegex = /^(0|[1-9][0-9]{0,11})$/;
+        const numberRegex = /^(0|[1-9][0-9]{0,11})$/;
         const { company, date, product, volume, weight, branch, order_number, id, } = req.body.input;
         const { name } = req.body.collaborator;
 
         try {
             if (!companiesArray.includes(company)) {
-                return res.status(400).send("Coloque um nome de empresa válido");
+                return res.status(400).send("Coloque um nome de empresa válido.");
             }
             if (!dateRegex.test(date)) {
-                return res.status(400).send("Coloque uma data válida, por exemplo: DD/MM/AAAA")
+                return res.status(400).send("Coloque uma data válida, por exemplo: DD/MM/AAAA.")
             }
             if (!productsArray.includes(product)) {
-                return res.status(400).send("Coloque um nome de material válido");
+                return res.status(400).send("Coloque um nome de material válido.");
             }
-            if (!volumeAndWeightRegex.test(volume)) {
-                return res.status(400).send("Volume deve ser positivo, inteiro e no máximo 12 dígitos");
+            if (!numberRegex.test(volume)) {
+                return res.status(400).send("Volume deve ser positivo, inteiro e no máximo 12 dígitos.");
             }
-            if (!volumeAndWeightRegex.test(weight)) {
-                return res.status(400).send("Peso deve ser positivo, inteiro e no máximo 12 dígitos");
+            if (!numberRegex.test(weight)) {
+                return res.status(400).send("Peso deve ser positivo, inteiro e no máximo 12 dígitos.");
             }
-            if (!orderRegex.test(order_number)) {
-                return res.status(400).send("Pedido deve ser positivo, inteiro e no máximo 12 dígitos");
+            if (!numberRegex.test(order_number)) {
+                return res.status(400).send("Pedido deve ser positivo, inteiro e no máximo 12 dígitos.");
             }
             if (!branchArray.includes(branch)) {
-                return res.status(400).send("Coloque um nome de loja válido");
+                return res.status(400).send("Coloque um nome de loja válido.");
             }
             await db.query(
                 `UPDATE coletas SET company = $1, date = $2, product = $3, username = $4, volume = $5, weight = $6, order_number = $7, branch = $8, status = $9 WHERE id = $10`,
                 [company, date, product, name, volume, weight, order_number, branch, "coletasaprovar", id]
             );
-            return res.status(201).send("ok");
+            return res.status(201).send({ message: "Coleta editada com sucesso." });
             }
         catch (err) {
             console.error(err);
-            return res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor.");
         }
         finally {
             end();
