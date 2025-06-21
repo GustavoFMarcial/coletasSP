@@ -78,7 +78,8 @@ img:hover {
     top: -9px;
     cursor: pointer;
     max-height: 150px;
-    overflow-x: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 textarea {

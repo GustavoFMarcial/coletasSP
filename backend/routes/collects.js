@@ -91,13 +91,13 @@ async function collects(app, _) {
 
         try {
             if (!companiesArray.includes(company)) {
-                return res.status(400).send("Coloque um nome de empresa válido.");
+                return res.status(400).send("Coloque uma empresa válida.");
             }
             if (!dateRegex.test(date)) {
                 return res.status(400).send("Coloque uma data válida, por exemplo: DD/MM/AAAA.");
             }
             if (!productsArray.includes(product)) {
-                return res.status(400).send("Coloque um nome de material válido.");
+                return res.status(400).send("Coloque um material válido.");
             }
             if (!numberRegex.test(volume)) {
                 return res.status(400).send("Volume deve ser positivo, inteiro e no máximo 12 dígitos.");
@@ -109,7 +109,7 @@ async function collects(app, _) {
                 return res.status(400).send("Pedido deve ser positivo, inteiro e no máximo 12 dígitos.");
             }
             if (!branchArray.includes(branch)) {
-                return res.status(400).send("Coloque um nome de loja válido.");
+                return res.status(400).send("Coloque uma loja válida.");
             }
             await db.query(
                 `INSERT INTO coletas (company, date, product, username, volume, weight, order_number, branch, status) 
@@ -174,13 +174,13 @@ async function collects(app, _) {
 
         try {
             if (!companiesArray.includes(company)) {
-                return res.status(400).send("Coloque um nome de empresa válido.");
+                return res.status(400).send("Coloque uma empresa válida.");
             }
             if (!dateRegex.test(date)) {
-                return res.status(400).send("Coloque uma data válida, por exemplo: DD/MM/AAAA.")
+                return res.status(400).send("Coloque uma data válida, por exemplo: DD/MM/AAAA.");
             }
             if (!productsArray.includes(product)) {
-                return res.status(400).send("Coloque um nome de material válido.");
+                return res.status(400).send("Coloque um material válido.");
             }
             if (!numberRegex.test(volume)) {
                 return res.status(400).send("Volume deve ser positivo, inteiro e no máximo 12 dígitos.");
@@ -192,7 +192,7 @@ async function collects(app, _) {
                 return res.status(400).send("Pedido deve ser positivo, inteiro e no máximo 12 dígitos.");
             }
             if (!branchArray.includes(branch)) {
-                return res.status(400).send("Coloque um nome de loja válido.");
+                return res.status(400).send("Coloque uma loja válida.");
             }
             await db.query(
                 `UPDATE coletas SET company = $1, date = $2, product = $3, username = $4, volume = $5, weight = $6, order_number = $7, branch = $8, status = $9 WHERE id = $10`,
