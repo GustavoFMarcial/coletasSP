@@ -4,6 +4,7 @@ import DisplayAutoSearchProduct from "./DisplayAutoSearchProduct.jsx";
 import DisplayAutoSearchBranch from "./DisplayAutoSearchBranch.jsx";
 
 function DisplayInput({ addCollect, resetInput, collaborator }) {
+    
     const [autoSearchCompany, setAutoSearchCompany] = useState(false);
     const [autoSearchProduct, setAutoSearchProduct] = useState(false);
     const [autoSearchBranch, setAutoSearchBranch] = useState(false);
@@ -100,19 +101,19 @@ function DisplayInput({ addCollect, resetInput, collaborator }) {
                 <></>
                 :
                 <>
-                    <tr className="tr-input">
-                        <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"></td>
-                        <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"></td>
-                        <td className="border-gray-400 bg-gray-100 border-b-1 border-t-1 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
-                        <td className="border-l-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
-                        <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
-                        <td className="border-gray-400 bg-gray-100 border-b-1 border-t-1 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.volume} type="text" name="volume" placeholder="Volume" required autoComplete="off"/></td>
-                        <td className="border-gray-400 bg-gray-100 border-l-1 border-b-1 border-t-1 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.weight} type="text" name="weight" placeholder="Peso" required autoComplete="off"/></td>
-                        <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.order_number} type="text" name="order_number" placeholder="Pedido" required autoComplete="off"/></td>
-                        <td className="border-x-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.branch} type="text" name="branch" placeholder="Loja" required autoComplete="off"/></td>
-                        <td className="border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"></td>
-                        <td className="border-gray-400 bg-gray-100 border-b-1 border-t-1 text-gray-600 pl-1"><img className="min-w-[25px] min-h-[25px]" src="/assets/images/add.png" alt="add button" onClick={() => addCollect(input)}/></td>
-                        <td className="border-r-1 border-gray-400 border-b-1 border-t-1 bg-gray-100 text-gray-600 pl-1"></td>
+                    <tr className={"tr-input text-gray-600 bg-gray-100"}>
+                        <td className="border-x-1 border-gray-400 border-b-1 border-t-1 pl-1"></td>
+                        <td className="border-x-1 border-gray-400 border-b-1 border-t-1 pl-1"></td>
+                        <td className="border-gray-400 border-b-1 border-t-1 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.company} type="text" name="company" placeholder="Empresa" required autoComplete="off"/></td>
+                        <td className="border-l-1 border-gray-400 border-b-1 border-t-1 pl-1"><input className="bg-white" onChange={handleInput} value={input.date} type="text" name="date" placeholder="Data" required autoComplete="off"/></td>
+                        <td className="border-x-1 border-gray-400 border-b-1 border-t-1 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.product} type="text" name="product" placeholder="Material" required autoComplete="off"/></td>
+                        <td className="border-gray-400 border-b-1 border-t-1 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.volume} type="text" name="volume" placeholder="Volume" required autoComplete="off"/></td>
+                        <td className="border-gray-400 border-l-1 border-b-1 border-t-1 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.weight} type="text" name="weight" placeholder="Peso" required autoComplete="off"/></td>
+                        <td className="border-x-1 border-gray-400 border-b-1 border-t-1 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.order_number} type="text" name="order_number" placeholder="Pedido" required autoComplete="off"/></td>
+                        <td className="border-x-1 border-gray-400 border-b-1 border-t-1 pl-1"><input className="bg-white" onChange={handleInput} onMouseDown={handleMouseDown} value={input.branch} type="text" name="branch" placeholder="Loja" required autoComplete="off"/></td>
+                        <td className="border-gray-400 border-b-1 border-t-1 pl-1"></td>
+                        <td className="border-gray-400 border-b-1 border-t-1 pl-1"><img className="min-w-[25px] min-h-[25px]" src="/assets/images/add.png" alt="add button" onClick={() => addCollect(input)}/></td>
+                        <td className="border-r-1 border-gray-400 border-b-1 border-t-1 pl-1"></td>
                     </tr>
                     <tr>
                         <td></td>
