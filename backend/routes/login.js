@@ -29,7 +29,7 @@ async function login(app, _) {
         }
         catch (err) {
             console.error(err);
-            return res.status(500).send("Erro no servidor");
+            return res.status(500).send("Erro no servidor.");
         }
     })
 
@@ -61,16 +61,17 @@ async function login(app, _) {
     })
 
     app.post("/api/password", { preHandler: verifyToken}, async (req, res) => {
-        const { userNewPassword, name, role, } = req.body;
+        const { input, name, role, } = req.body;
+        console.log(req.body);
         try {
-            if (!userNewPassword || userNewPassword == "") {
-                throw new Error("A senha não pode ser em branco");
+            if (!input || input == "") {
+                throw new Error("A senha não pode ser em branco.");
             }
-            if (userNewPassword.length <= 5) {
-                throw new Error("A senha deve ter mais de 5 caracteres");
+            if (input.length <= 5) {
+                throw new Error("A senha deve ter mais de 5 caracteres.");
             }
             const saltRounds = 12;
-            const plainPassword = userNewPassword;
+            const plainPassword = input;
             const hash = await bcrypt.hash(plainPassword, saltRounds);
             await db.query("UPDATE contas SET password = ($1) WHERE name = ($2) AND role = ($3)", [hash, name, role]);
         }
