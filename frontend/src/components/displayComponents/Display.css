@@ -48,6 +48,8 @@ th, td {
 
 .edit-input-dialog {
     position: absolute;
+    height: 350px;
+    width: 1600px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -75,6 +77,8 @@ img:hover {
     width: 150px;
     top: -9px;
     cursor: pointer;
+    max-height: 150px;
+    overflow-x: auto;
 }
 
 textarea {
