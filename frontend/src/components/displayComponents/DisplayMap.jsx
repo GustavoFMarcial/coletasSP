@@ -52,15 +52,15 @@ function DisplayMap({ collaborator, data, doneCollect, editCollect, deleteCollec
                             <>
                                 {collaborator.name == item.username ?
                                 <>
-                                    <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400" : "border-gray-400"}></td>
-                                    <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400" : "border-gray-400"}><EditModal created_at={created_at} closeModalSignal={closeModalSignal} editCollect={editCollect} item={item}/></td>
-                                    <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400" : "border-gray-400"}><img className="min-w-[25px] min-h-[25px]" onClick={() => deleteCollect(item.id)} src="/assets/images/delete.png" alt="delete button"/></td>
+                                    <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400" : "border-gray-400"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}></td>
+                                    <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400" : "border-gray-400"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}><EditModal created_at={created_at} closeModalSignal={closeModalSignal} editCollect={editCollect} item={item}/></td>
+                                    <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400" : "border-gray-400"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}><img className="min-w-[25px] min-h-[25px]" onClick={() => deleteCollect(item.id)} src="/assets/images/delete.png" alt="delete button"/></td>
                                 </>
                                 :
                                 <>
-                                    <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400" : "border-gray-400"}></td>
-                                    <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400" : "border-gray-400"}></td>
-                                    <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400" : "border-gray-400"}></td>
+                                    <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400" : "border-gray-400"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}></td>
+                                    <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400" : "border-gray-400"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}></td>
+                                    <td className={index % 2 == 0 ? "bg-gray-100 border-gray-400" : "border-gray-400"} style={index == array.length - 1 ? {borderBottom: "1px solid #9CA3AF"} : {borderBottom: "none"}}></td>
                                 </>
                                 }
                             </>
